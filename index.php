@@ -220,6 +220,14 @@
 									
 									<h2><a href="#">Frutta e verdura</a></h2>
 
+									<form action="/bdg/assets/php/doppia_categoria.php" method="post">
+										<input type="hidden" id="categoria1" name="categoria1" value="frutta">
+										<input type="hidden" id="categoria2" name="categoria2" value="verdura">
+										<input type="submit" value="Mostra tutti i prodotti">
+									</form>
+
+
+
 									<?php 
 
 										$categoria1 = "Frutta";
