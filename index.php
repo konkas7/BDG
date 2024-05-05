@@ -250,113 +250,123 @@
 
 							</form>
 						</li>
-						<script>
-							// Seleziona l'elemento li
-							var fruttaVerduraLi = document.getElementById("frutta_e_verdura");
-							// Aggiungi un gestore di eventi click
-							fruttaVerduraLi.addEventListener("click", function() {
-								// Simula il click sul pulsante di invio del modulo
-								document.getElementById("frutta_verdura_form").submit();
-							});
-						</script>
-						<li>
+						
+						<li id="carne_e_pesce">
 							<div class="single-list-topics-content">
 								<div class="single-list-topics-icon">
 									<i class="flaticon-travel"></i>
 								</div>
 								<h2><a href="#">Carne e pesce</a></h2>
+								<form id="carne_pesce_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<input type="hidden" name="categoria1" value="carne">
+									<input type="hidden" name="categoria2" value="pesce">
+									<input type="submit" style="display: none;">
+								</form>
 								<?php 
 
-								
-									$categoria1 = "Carne";
-									$numElementi1 = numero_elementi($categoria1);
-									$categoria2 = "Pesce";
-									$numElementi2 = numero_elementi($categoria2);
+										$categoria1 = "Carne";
+										$numElementi1 = numero_elementi($categoria1);
+										$categoria2 = "Pesce";
+										$numElementi2 = numero_elementi($categoria2);
 
-									$somma = $numElementi1 + $numElementi2;
+										$somma = $numElementi1 + $numElementi2;
 
-									// Modifica la logica di stampa in base al numero di elementi
-									if ($somma == 1) {
-										echo "<p>$somma elemento</p>";
-									} else {
-										echo "<p>$somma elementi</p>";
-									}
+										// Modifica la logica di stampa in base al numero di elementi
+										if ($somma == 1) {
+											echo "<p>$somma elemento</p>";
+										} else {
+											echo "<p>$somma elementi</p>";
+										}
 								?>
 							</div>
 						</li>
-						<li>
+						<li id="salumi_e_formaggi">
 							<div class="single-list-topics-content">
 								<div class="single-list-topics-icon">
 									<i class="flaticon-building"></i>
 								</div>
 								<h2><a href="#">Salumi e formaggi</a></h2>
+								<form id="salumi_formaggi_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<input type="hidden" name="categoria1" value="salumi">
+									<input type="hidden" name="categoria2" value="formaggi">
+									<input type="submit" style="display: none;">
+								</form>
 								<?php 
 
+										$categoria1 = "Salumi";
+										$numElementi1 = numero_elementi($categoria1);
+										$categoria2 = "Formaggi";
+										$numElementi2 = numero_elementi($categoria2);
 
-									$categoria1 = "Salumi";
-									$numElementi1 = numero_elementi($categoria1);
-									$categoria2 = "Formaggi";
-									$numElementi2 = numero_elementi($categoria2);
+										$somma = $numElementi1 + $numElementi2;
 
-									$somma = $numElementi1 + $numElementi2;
-
-									// Modifica la logica di stampa in base al numero di elementi
-									if ($somma == 1) {
-										echo "<p>$somma elemento</p>";
-									} else {
-										echo "<p>$somma elementi</p>";
-									}
+										// Modifica la logica di stampa in base al numero di elementi
+										if ($somma == 1) {
+											echo "<p>$somma elemento</p>";
+										} else {
+											echo "<p>$somma elementi</p>";
+										}
 								?>
 							</div>
 						</li>
-						<li>
+						<li id="prodotti_da_forno">
 							<div class="single-list-topics-content">
 								<div class="single-list-topics-icon">
 									<i class="flaticon-pills"></i>
 								</div>
 								<h2><a href="#">Prodotti da forno</a></h2>
+								<form id="forno_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<input type="hidden" name="categoria1" value="Pane_e_Prodotti_da_Forno">
+									<input type="hidden" name="categoria2" value="Prodotti_da_Forno">
+									<input type="submit" style="display: none;">
+								</form>
 								<?php 
 
-									
-									$categoria1 = "Pane_e_Prodotti_da_Forno";
-									$numElementi1 = numero_elementi($categoria1);
-									$categoria2 = "Prodotti_da_Forno";
-									$numElementi2 = numero_elementi($categoria2);
+										$categoria1 = "Pane_e_Prodotti_da_Forno";
+										$numElementi1 = numero_elementi($categoria1);
+										$categoria2 = "Prodotti_da_Forno";
+										$numElementi2 = numero_elementi($categoria2);
 
-									$somma = $numElementi1 + $numElementi2;
+										$somma = $numElementi1 + $numElementi2;
 
-									// Modifica la logica di stampa in base al numero di elementi
-									if ($somma == 1) {
-										echo "<p>$somma elemento</p>";
-									} else {
-										echo "<p>$somma elementi</p>";
-									}
+										// Modifica la logica di stampa in base al numero di elementi
+										if ($somma == 1) {
+											echo "<p>$somma elemento</p>";
+										} else {
+											echo "<p>$somma elementi</p>";
+										}
 								?>
 							</div>
 						</li>
-						<li>
+						<li id="prodotti_casa">
 							<div class="single-list-topics-content">
 								<div class="single-list-topics-icon">
 									<i class="flaticon-transport"></i>
 								</div>
 								<h2><a href="#">Prodotti casa</a></h2>
+								<form id="casa_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<input type="hidden" name="categoria1" value="Detersivi_per_la_Casa">
+									<input type="hidden" name="categoria2" value="Prodotti_per_la_Pulizia_Personale">
+									<input type="hidden" name="categoria3" value="Accessori_per_la_Cucina">
+									<input type="submit" style="display: none;">
+								</form>
 								<?php 
 
-									$categoria1 = "Detersivi_per_la_Casa";
-									$numElementi1 = numero_elementi($categoria1);
-									$categoria2 = "Prodotti_per_la_Pulizia_Personale";
-									$numElementi2 = numero_elementi($categoria2);
-									$categoria3 = "Accessori_per_la_Cucina";
-									$numElementi3 = numero_elementi($categoria3);
+										$categoria1 = "Detersivi_per_la_Casa";
+										$numElementi1 = numero_elementi($categoria1);
+										$categoria2 = "Prodotti_per_la_Pulizia_Personale";
+										$numElementi2 = numero_elementi($categoria2);
+										$categoria3 = "Accessori_per_la_Cucina";
+										$numElementi3 = numero_elementi($categoria3);
 
-									$somma = $numElementi1 + $numElementi2 + $numElementi3;
+										$somma = $numElementi1 + $numElementi2 + $numElementi3;
 
-									// Modifica la logica di stampa in base al numero di elementi
-									if ($somma == 1) {
-										echo "<p>$somma elemento</p>";
-									} else {
-										echo "<p>$somma elementi</p>";
-									}
+										// Modifica la logica di stampa in base al numero di elementi
+										if ($somma == 1) {
+											echo "<p>$somma elemento</p>";
+										} else {
+											echo "<p>$somma elementi</p>";
+										}
 								?>
 							</div>
 						</li>
@@ -365,6 +375,34 @@
 			</div><!--/.container-->
 
 		</section><!--/.list-topics-->
+
+		<script>
+			// Aggiungi gestori di eventi click per ciascun li
+			var fruttaVerduraLi = document.getElementById("frutta_e_verdura");
+			fruttaVerduraLi.addEventListener("click", function() {
+				document.getElementById("frutta_verdura_form").submit();
+			});
+
+			var carnePesceLi = document.getElementById("carne_e_pesce");
+			carnePesceLi.addEventListener("click", function() {
+				document.getElementById("carne_pesce_form").submit();
+			});
+
+			var salumiFormaggiLi = document.getElementById("salumi_e_formaggi");
+			salumiFormaggiLi.addEventListener("click", function() {
+				document.getElementById("salumi_formaggi_form").submit();
+			});
+
+			var prodottiFornoLi = document.getElementById("prodotti_da_forno");
+			prodottiFornoLi.addEventListener("click", function() {
+				document.getElementById("forno_form").submit();
+			});
+
+			var prodottiCasaLi = document.getElementById("prodotti_casa");
+			prodottiCasaLi.addEventListener("click", function() {
+				document.getElementById("casa_form").submit();
+			});
+		</script>
 		<!--list-topics end-->
 
 		<!--works start -->
