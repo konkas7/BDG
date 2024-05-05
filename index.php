@@ -214,9 +214,10 @@
 					<ul>
 						<li id="frutta_e_verdura">
 								<div class="single-list-topics-content">
-									<div class="single-list-topics-icon">
-										<i class="flaticon-restaurant"></i>
-									</div>
+								<div class="single-list-topics-icon" style="position: relative; margin:0 auto; clear:left; height:auto; z-index: 0; text-align:center;">
+									<img src="assets/images/foto_categorie/vegetable.png" alt="Icon" style="width: 38%; height: auto;">
+								</div>
+
 									
 									<h2><a>Frutta e verdura</a></h2>
 
@@ -253,8 +254,8 @@
 						
 						<li id="carne_e_pesce">
 							<div class="single-list-topics-content">
-								<div class="single-list-topics-icon">
-									<i class="flaticon-travel"></i>
+								<div class="single-list-topics-icon" style="position: relative; margin:0 auto; clear:left; height:auto; z-index: 0; text-align:center;">
+									<img src="assets/images/foto_categorie/proteins.png" alt="Icon" style="width: 38%; height: auto;">
 								</div>
 								<h2><a href="#">Carne e pesce</a></h2>
 								<form id="carne_pesce_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
@@ -282,8 +283,8 @@
 						</li>
 						<li id="salumi_e_formaggi">
 							<div class="single-list-topics-content">
-								<div class="single-list-topics-icon">
-									<i class="flaticon-building"></i>
+								<div class="single-list-topics-icon" style="position: relative; margin:0 auto; clear:left; height:auto; z-index: 0; text-align:center;">
+									<img src="assets/images/foto_categorie/ham.png" alt="Icon" style="width: 38%; height: auto;">
 								</div>
 								<h2><a href="#">Salumi e formaggi</a></h2>
 								<form id="salumi_formaggi_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
@@ -311,8 +312,8 @@
 						</li>
 						<li id="prodotti_da_forno">
 							<div class="single-list-topics-content">
-								<div class="single-list-topics-icon">
-									<i class="flaticon-pills"></i>
+								<div class="single-list-topics-icon" style="position: relative; margin:0 auto; clear:left; height:auto; z-index: 0; text-align:center;">
+									<img src="assets/images/foto_categorie/bread.png" alt="Icon" style="width: 38%; height: auto;">
 								</div>
 								<h2><a href="#">Prodotti da forno</a></h2>
 								<form id="forno_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
@@ -340,8 +341,8 @@
 						</li>
 						<li id="prodotti_casa">
 							<div class="single-list-topics-content">
-								<div class="single-list-topics-icon">
-									<i class="flaticon-transport"></i>
+								<div class="single-list-topics-icon" style="position: relative; margin:0 auto; clear:left; height:auto; z-index: 0; text-align:center;">
+									<img src="assets/images/foto_categorie/cleaning.png" alt="Icon" style="width: 38%; height: auto;">
 								</div>
 								<h2><a href="#">Prodotti casa</a></h2>
 								<form id="casa_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
