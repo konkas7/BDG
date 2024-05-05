@@ -212,18 +212,18 @@
 			<div class="container">
 				<div class="list-topics-content">
 					<ul>
-						<li>
+						<li id="frutta_e_verdura">
 								<div class="single-list-topics-content">
 									<div class="single-list-topics-icon">
 										<i class="flaticon-restaurant"></i>
 									</div>
 									
-									<h2><a href="#">Frutta e verdura</a></h2>
+									<h2><a>Frutta e verdura</a></h2>
 
-									<form action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<form id="frutta_verdura_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
 										<input type="hidden" id="categoria1" name="categoria1" value="frutta">
 										<input type="hidden" id="categoria2" name="categoria2" value="verdura">
-										<input type="submit" value="Mostra tutti i prodotti">
+										<input type="submit" style="display: none;">
 									</form>
 
 
@@ -250,6 +250,15 @@
 
 							</form>
 						</li>
+						<script>
+							// Seleziona l'elemento li
+							var fruttaVerduraLi = document.getElementById("frutta_e_verdura");
+							// Aggiungi un gestore di eventi click
+							fruttaVerduraLi.addEventListener("click", function() {
+								// Simula il click sul pulsante di invio del modulo
+								document.getElementById("frutta_verdura_form").submit();
+							});
+						</script>
 						<li>
 							<div class="single-list-topics-content">
 								<div class="single-list-topics-icon">
