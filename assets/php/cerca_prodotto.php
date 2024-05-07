@@ -23,11 +23,11 @@
             background-color: #fff;
             margin: 10% auto;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 80%;
-            max-width: 600px; /* Limit modal width */
-            position: relative; /* Position relative for absolute positioning inside */
+            width: 90%; /* Width set to 90% */
+            max-width: 800px; /* Maximum width increased for larger popup */
+            position: relative;
         }
 
         /* Close Button */
@@ -41,17 +41,26 @@
         }
 
         /* Product Card */
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
         .product {
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 10px;
+            padding: 20px;
             margin: 10px;
-            width: calc(33.33% - 20px); /* Responsive width for 3 products in a row */
             transition: transform 0.3s ease;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Make the product grow to fill the space */
+            max-width: calc(20% - 20px); /* Maximum width for each product */
         }
 
         .product:hover {
-            transform: translateY(-5px); /* Lift up on hover */
+            transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
@@ -66,6 +75,13 @@
             text-align: center;
         }
 
+        /* Clearfix to prevent container collapse */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
     </style>
 
 </head>
@@ -77,7 +93,7 @@
   <!-- Modal content -->
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <div class="products-container"> <!-- Contenitore dei prodotti -->
+        <div class="products-container clearfix"> <!-- Product Container -->
             <?php
             // Include database connection
             include 'db_connection.php';
@@ -103,12 +119,14 @@
                     $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 
                     // Display product information
-                    echo "<div class='product'>"; // Aggiunto la classe 'product' per ogni prodotto
+                    echo "<div class='product'>"; // Added 'product' class for each product
+                    echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
+                    echo "<div class='product-info'>"; // Added product-info div
                     echo "<h2>" . $row['nome'] . "</h2>";
                     echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
                     echo "<p>Origine: " . $row['origine'] . "</p>";
                     echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
-                    echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
+                    echo "</div>"; // Closed product-info div
                     echo "</div>";
                 }
             } else {
@@ -125,7 +143,7 @@
 </div>
 
 <script>
-// Definisci la funzione openModal
+// Function to open the modal
 function openModal() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
@@ -150,7 +168,7 @@ window.onclick = function(event) {
   }
 }
 
-// Esegui la funzione openModal al caricamento della pagina
+// Run the openModal function when the page loads
 window.onload = function() {
     openModal();
 };
