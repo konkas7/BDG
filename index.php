@@ -418,21 +418,38 @@
 						<div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
-									<i class="flaticon-lightbulb-idea"></i>
+									<img src="assets/images/Dipendenti/Alfredo.jpeg" alt="Foto Barbara" style="border-radius: 50%;">
 								</div>
 								<h2><a href="#">Alfredo Pesenti Bolò</a></h2>
 								<p>
 									La causa prima di ogni cosa <br><br>‎ 
 								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
+								<button class="welcome-hero-btn how-work-btn" onclick="javascript:autoPopup()">
 									Leggi altro
 								</button>
+								<script type="text/javascript">
+									<!--
+									function autoPopup() {
+									var stili = "top=10, left=10, width=400, height=250, status=no, menubar=no, toolbar=no scrollbars=no";
+									var testo = window.open("", "", stili);
+									testo.document.write("<html>");
+									testo.document.write(" <head>");
+									testo.document.write(" <title>Alfredo Pesenti Bolò</title>");
+									testo.document.write(" <basefont size=2 face=Tahoma>");
+									testo.document.write(" </head>");
+									testo.document.write("<body topmargin=50>");
+									testo.document.write("<div align=center><b>Capostipite della famiglia, Cavaliere della Repubblica e Croce al merito di guerra. Dal 1960 insieme alla prima moglie Elsa Arnoldi apre l'attività commerciale che comprende sia il negozio di generi alimentari, frutta, verdura, salumi, formaggi e utili per la casa, ma anche il commercio di prodotti locali tipici della zona. Uomo di grande abilità commerciale e importante carisma personale.</a></div>");
+									testo.document.write("</body>");
+									testo.document.write("</html>");
+									}
+									//-->
+								</script>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
-									<i class="flaticon-networking"></i>
+									<img src="assets/images/Dipendenti/Rita.jpeg" alt="Foto Barbara" style="border-radius: 50%;">
 								</div>
 								<h2><a href="#">Rita Pesenti Rossi</a></h2>
 								<p>
@@ -463,7 +480,7 @@
                         <div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
-									<i class="flaticon-networking"></i>
+									<img src="assets/images/Dipendenti/Armanda.jpeg" alt="Foto Barbara" style="border-radius: 50%;">
 								</div>
 								<h2><a href="#">Armanda Offredi</a></h2>
 								<p>
