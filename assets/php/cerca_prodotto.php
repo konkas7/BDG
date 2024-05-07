@@ -44,6 +44,7 @@
         .products-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         .product {
@@ -56,7 +57,7 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1; /* Make the product grow to fill the space */
-            max-width: calc(20% - 20px); /* Maximum width for each product */
+            max-width: calc(25% - 20px); /* Maximum width for each product */
             position: relative; /* Added for positioning the button */
         }
 
@@ -192,41 +193,41 @@
 </div>
 
 <script>
-// Function to open the modal
-function openModal() {
+    // Function to open the modal
+    function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    // Get the modal
     var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-}
 
-// Get the modal
-var modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    // When the user clicks on <span> (x), close the modal
+    function closeModal() {
+    modal.style.display = "none";
+    window.location.href = "/bdg/index.php";
+    }
 
-// When the user clicks on <span> (x), close the modal
-function closeModal() {
-  modal.style.display = "none";
-  window.location.href = "/bdg/index.php";
-}
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+    }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    closeModal();
-  }
-}
-
-// Funzione per aggiungere un prodotto al carrello
-function addToCart(productId) {
-    // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
-    // Qui puoi anche fare riferimento all'implementazione di aggiunta al carrello che ho descritto precedentemente
-    alert("Prodotto aggiunto al carrello!");
-}
-// Esegui la funzione openModal quando la pagina si carica
-window.onload = function() {
-    openModal();
-};
+    // Funzione per aggiungere un prodotto al carrello
+    function addToCart(productId) {
+        // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
+        // Qui puoi anche fare riferimento all'implementazione di aggiunta al carrello che ho descritto precedentemente
+        alert("Prodotto aggiunto al carrello!");
+    }
+    // Esegui la funzione openModal quando la pagina si carica
+    window.onload = function() {
+        openModal();
+    };
 </script>
 
 </body>
