@@ -7,56 +7,65 @@
     <style>
         /* CSS for the modal popup */
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background: linear-gradient(to bottom, #305fc7, #1a4689); /* Gradient background */
-            padding-top: 60px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
         }
 
         /* Modal Content/Box */
         .modal-content {
-            background-color: #add8e6; /* Light blue background */
-            margin: 5% auto; /* 5% from the top, centered */
+            background-color: #fff;
+            margin: 10% auto;
             padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow effect */
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 600px; /* Limit modal width */
+            position: relative; /* Position relative for absolute positioning inside */
         }
 
         /* Close Button */
         .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        /* CSS per allineare i prodotti accanto */
-        .products-container {
-            display: flex; /* Usiamo flexbox per allineare i prodotti accanto */
-            flex-wrap: wrap; /* Permette ai prodotti di andare a capo se non c'è abbastanza spazio */
-            justify-content: space-around; /* Distribuisce uniformemente i prodotti lungo l'asse orizzontale */
-        }
-
-        .product {
-            /* Stile di ogni singolo prodotto */
-            width: 30%; /* Larghezza dei singoli prodotti */
-            margin-bottom: 20px; /* Spazio tra i prodotti */
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
             cursor: pointer;
+            color: #555;
         }
+
+        /* Product Card */
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(33.33% - 20px); /* Responsive width for 3 products in a row */
+            transition: transform 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-5px); /* Lift up on hover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Product Info */
+        .product-info {
+            text-align: center;
+        }
+
     </style>
 
 </head>

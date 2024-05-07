@@ -7,41 +7,65 @@
     <style>
         /* CSS for the modal popup */
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            padding-top: 60px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
         }
 
         /* Modal Content/Box */
         .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; /* 5% from the top, centered */
+            background-color: #fff;
+            margin: 10% auto;
             padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 600px; /* Limit modal width */
+            position: relative; /* Position relative for absolute positioning inside */
         }
 
         /* Close Button */
         .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #555;
         }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        /* Product Card */
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(33.33% - 20px); /* Responsive width for 3 products in a row */
+            transition: transform 0.3s ease;
         }
+
+        .product:hover {
+            transform: translateY(-5px); /* Lift up on hover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Product Info */
+        .product-info {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -50,50 +74,52 @@
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <?php
-    // Include database connection
-    include 'db_connection.php';
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="products-container"> <!-- Contenitore dei prodotti -->
+            <?php
+            // Include database connection
+            include 'db_connection.php';
 
-    // Retrieve category selections from the form
-    $categoria1 = $_POST['categoria1'];
-    $categoria2 = $_POST['categoria2'];
+            // Retrieve category selections from the form
+            $categoria1 = $_POST['categoria1'];
+            $categoria2 = $_POST['categoria2'];
 
-    // Query to fetch all products
-    $sql = "SELECT p.*, c.nome_categoria 
-            FROM prodotti p
-            INNER JOIN categorie c ON p.categoria_id = c.id
-            WHERE c.nome_categoria IN ('$categoria1', '$categoria2')";
+            // Query to fetch all products
+            $sql = "SELECT p.*, c.nome_categoria 
+                    FROM prodotti p
+                    INNER JOIN categorie c ON p.categoria_id = c.id
+                    WHERE c.nome_categoria IN ('$categoria1', '$categoria2')";
 
 
 
-    $result = $conn->query($sql);
+            $result = $conn->query($sql);
 
-    // Check if any products are found
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while ($row = $result->fetch_assoc()) {
-            // Compose image URL using category name and product name
-            $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+            // Check if any products are found
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    // Compose image URL using category name and product name
+                    $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 
-            // Display product information
-            echo "<div>";
-            echo "<h2>" . $row['nome'] . "</h2>";
-            echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
-            echo "<p>Origine: " . $row['origine'] . "</p>";
-            echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
-            echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
-            echo "</div>";
-        }
-    } else {
-        echo "Nessun prodotto trovato.";
-    }
+                    // Display product information
+                    echo "<div class='product'>";
+                    echo "<h2>" . $row['nome'] . "</h2>";
+                    echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
+                    echo "<p>Origine: " . $row['origine'] . "</p>";
+                    echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
+                    echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
+                    echo "</div>";
+                }
+            } else {
+                echo "Nessun prodotto trovato.";
+            }
 
-    // Close database connection
-    $conn->close();
-    ?>
-  </div>
+            // Close database connection
+            $conn->close();
+            ?>
+        </div>
+    </div>
 
 </div>
 
