@@ -418,65 +418,114 @@
 						<div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
-									<img src="assets/images/Dipendenti/Alfredo.jpeg" alt="Foto Barbara" style="border-radius: 50%;">
+									<img src="assets/images/Dipendenti/Alfredo.jpeg" alt="Foto Alfredo" style="border-radius: 50%;">
 								</div>
-								<h2><a href="#">Alfredo Pesenti Bolò</a></h2>
+								<h2><a>Alfredo Pesenti Bolò</a></h2>
 								<p>
 									La causa prima di ogni cosa <br><br>‎ 
 								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="javascript:autoPopup()">
+								<p id="extraText" style="display: none;">Capostipite della famiglia, Cavaliere della Repubblica e Croce al merito di guerra. Dal 1960 insieme alla prima moglie Elsa Arnoldi apre l'attività commerciale che comprende sia il negozio di generi alimentari, frutta, verdura, salumi, formaggi e utili per la casa, ma anche il commercio di prodotti locali tipici della zona. Uomo di grande abilità commerciale e importante carisma personale.</p>
+								<button class="welcome-hero-btn how-work-btn toggle-button">
 									Leggi altro
 								</button>
-								<script type="text/javascript">
-									<!--
-									function autoPopup() {
-									var stili = "top=10, left=10, width=400, height=250, status=no, menubar=no, toolbar=no scrollbars=no";
-									var testo = window.open("", "", stili);
-									testo.document.write("<html>");
-									testo.document.write(" <head>");
-									testo.document.write(" <title>Alfredo Pesenti Bolò</title>");
-									testo.document.write(" <basefont size=2 face=Tahoma>");
-									testo.document.write(" </head>");
-									testo.document.write("<body topmargin=50>");
-									testo.document.write("<div align=center><b>Capostipite della famiglia, Cavaliere della Repubblica e Croce al merito di guerra. Dal 1960 insieme alla prima moglie Elsa Arnoldi apre l'attività commerciale che comprende sia il negozio di generi alimentari, frutta, verdura, salumi, formaggi e utili per la casa, ma anche il commercio di prodotti locali tipici della zona. Uomo di grande abilità commerciale e importante carisma personale.</a></div>");
-									testo.document.write("</body>");
-									testo.document.write("</html>");
-									}
-									//-->
-								</script>
+								
+
 							</div>
 						</div>
+						<script>
+							document.addEventListener('DOMContentLoaded', function() {
+								var toggleButtons = document.querySelectorAll('.toggle-button');
+
+								toggleButtons.forEach(function(button) {
+									button.addEventListener('click', function() {
+										var extraText = document.getElementById("extraText");
+										var buttonText = this;
+
+										if (extraText.style.display === "none") {
+											extraText.style.display = "block";
+											buttonText.textContent = "Nascondi"; // Cambia il testo del pulsante quando il testo extra è visibile
+										} else {
+											extraText.style.display = "none";
+											buttonText.textContent = "Leggi Altro"; // Cambia il testo del pulsante quando il testo extra è nascosto
+										}
+									});
+								});
+							});
+						</script>
 						<div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
-									<img src="assets/images/Dipendenti/Rita.jpeg" alt="Foto Barbara" style="border-radius: 50%;">
+									<img src="assets/images/Dipendenti/Rita.jpeg" alt="Foto Rita" style="border-radius: 50%;">
 								</div>
-								<h2><a href="#">Rita Pesenti Rossi</a></h2>
+								<h2><a>Rita Pesenti Rossi</a></h2>
 								<p>
 									La Gabriella del villaggio
                                     
                                     <br><br><br> ‎ 
 								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
+								<p id="extraTextt" style="display: none;">Conosciuta da tutti come "Gabri", seconda moglie di Alfredo dapprima ha aiutato il marito nell'attività, poi ha continuato sola con tanta passione e spirito di sacrificio.</p>
+								<button class="welcome-hero-btn how-work-btn toggle-buttonn">
 									Leggi Altro
 								</button>
+								
 							</div>
 						</div>
+						<script>
+							document.addEventListener('DOMContentLoaded', function() {
+								var toggleButtons = document.querySelectorAll('.toggle-buttonn');
+
+								toggleButtons.forEach(function(button) {
+									button.addEventListener('click', function() {
+										var extraText = document.getElementById("extraTextt");
+										var buttonText = this;
+
+										if (extraText.style.display === "none") {
+											extraText.style.display = "block";
+											buttonText.textContent = "Nascondi"; // Cambia il testo del pulsante quando il testo extra è visibile
+										} else {
+											extraText.style.display = "none";
+											buttonText.textContent = "Leggi Altro"; // Cambia il testo del pulsante quando il testo extra è nascosto
+										}
+									});
+								});
+							});
+						</script>
 						<div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
 									<!-- <i class="flaticon-location-on-road"></i> -->
                                     <img src="assets/images/Dipendenti/Barbara.jpg" alt="Foto Barbara" style="border-radius: 50%;">
 								</div>
-								<h2><a href="#">Barbara Pesenti Bolò</a></h2>
+								<h2><a>Barbara Pesenti Bolò</a></h2>
 								<p>
 									Le nuove generazioni <br>‎  
 								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
+								<p id="extraTexttt" style="display: none;">Degna erede commerciale dei genitori, ha portato avanti l'attività nonostante le grosse problematiche del periodo e con non pochi sacrifici per non lasciare senza un piccolo appoggio alimentare le persone anziane o impossibilitate a muoversi in auto che abitano nel paese di Gerosa.</p>
+								<button class="welcome-hero-btn how-work-btn toggle-buttonnn">
 									Leggi Altro
 								</button>
 							</div>
 						</div>
+						<script>
+							document.addEventListener('DOMContentLoaded', function() {
+								var toggleButtons = document.querySelectorAll('.toggle-buttonnn');
+
+								toggleButtons.forEach(function(button) {
+									button.addEventListener('click', function() {
+										var extraText = document.getElementById("extraTexttt");
+										var buttonText = this;
+
+										if (extraText.style.display === "none") {
+											extraText.style.display = "block";
+											buttonText.textContent = "Nascondi"; // Cambia il testo del pulsante quando il testo extra è visibile
+										} else {
+											extraText.style.display = "none";
+											buttonText.textContent = "Leggi Altro"; // Cambia il testo del pulsante quando il testo extra è nascosto
+										}
+									});
+								});
+							});
+						</script>
                         <div class="col-md-3 col-sm-6">
 							<div class="single-how-works">
 								<div class="single-how-works-icon">
@@ -486,11 +535,32 @@
 								<p>
 									La migliore amica del cliente
 								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
+								<p id="extraTextttt" style="display: none;">La grande e mitica Arma di Taggia</p>
+								<button class="welcome-hero-btn how-work-btn toggle-buttonnnn">
 									Leggi Altro
 								</button>
 							</div>
 						</div>
+						<script>
+							document.addEventListener('DOMContentLoaded', function() {
+								var toggleButtons = document.querySelectorAll('.toggle-buttonnnn');
+
+								toggleButtons.forEach(function(button) {
+									button.addEventListener('click', function() {
+										var extraText = document.getElementById("extraTextttt");
+										var buttonText = this;
+
+										if (extraText.style.display === "none") {
+											extraText.style.display = "block";
+											buttonText.textContent = "Nascondi"; // Cambia il testo del pulsante quando il testo extra è visibile
+										} else {
+											extraText.style.display = "none";
+											buttonText.textContent = "Leggi Altro"; // Cambia il testo del pulsante quando il testo extra è nascosto
+										}
+									});
+								});
+							});
+						</script>
 					</div>
 				</div>
 			</div><!--/.container-->
