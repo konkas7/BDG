@@ -57,6 +57,7 @@
             flex-direction: column;
             flex-grow: 1; /* Make the product grow to fill the space */
             max-width: calc(20% - 20px); /* Maximum width for each product */
+            position: relative; /* Added for positioning the button */
         }
 
         .product:hover {
@@ -73,6 +74,18 @@
         /* Product Info */
         .product-info {
             text-align: center;
+            flex-grow: 1; /* Ensure the info div fills the space */
+            margin-bottom: 30px; /* Add bottom margin to create space for the button */
+        }
+
+        /* Button to add to cart */
+        .add-to-cart {
+            position: absolute;
+            bottom: 0; /* Align the button to the bottom of the product */
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px; /* Add some space between the button and the product info */
+            
         }
 
         /* Clearfix to prevent container collapse */
@@ -80,6 +93,42 @@
             content: "";
             display: table;
             clear: both;
+        }
+
+        
+        .button-89 {
+            --b: 3px;   /* border thickness */
+            --s: .45em; /* size of the corner */
+            --color: #373B44;
+            
+            padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+            color: var(--color);
+            --_p: var(--s);
+            background:
+                conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+                var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+            transition: .3s linear, color 0s, background-color 0s;
+            outline: var(--b) solid #0000;
+            outline-offset: .6em;
+            font-size: 16px;
+
+            border: 0;
+
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-89:hover,
+        .button-89:focus-visible{
+            --_p: 0px;
+            outline-color: var(--color);
+            outline-offset: .05em;
+        }
+
+        .button-89:active {
+            background: var(--color);
+            color: #fff;
         }
 
     </style>
@@ -127,6 +176,8 @@
                     echo "<p>Origine: " . $row['origine'] . "</p>";
                     echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
                     echo "</div>"; // Closed product-info div
+                    // Button to add to cart
+                    echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ")'>Carrello</button>";
                     echo "</div>";
                 }
             } else {
@@ -138,8 +189,6 @@
             ?>
         </div>
     </div>
-
-
 </div>
 
 <script>
@@ -168,7 +217,13 @@ window.onclick = function(event) {
   }
 }
 
-// Run the openModal function when the page loads
+// Funzione per aggiungere un prodotto al carrello
+function addToCart(productId) {
+    // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
+    // Qui puoi anche fare riferimento all'implementazione di aggiunta al carrello che ho descritto precedentemente
+    alert("Prodotto aggiunto al carrello!");
+}
+// Esegui la funzione openModal quando la pagina si carica
 window.onload = function() {
     openModal();
 };
@@ -176,3 +231,6 @@ window.onload = function() {
 
 </body>
 </html>
+
+
+
