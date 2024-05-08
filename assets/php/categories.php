@@ -33,6 +33,8 @@ $conn->close();
 
 <select id="categoria" name="categoria" style="width: 300px;">
     <?php foreach($categories as $category): ?>
-        <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
+        <?php $category_display = str_replace('_', ' ', utf8_encode($category)); ?>
+        <option value="<?php echo $category; ?>"><?php echo $category_display; ?></option>
     <?php endforeach; ?>
 </select>
+
