@@ -132,6 +132,16 @@
             color: #fff;
         }
 
+        body {
+            background-image: url('../images/welcome-hero/banner.png'); /* Sostituisci 'path/to/your/image.jpg' con il percorso dell'immagine */
+            background-size: cover; /* Regola la dimensione dell'immagine in modo che copra tutto il background */
+            background-position: center center; /* Centra l'immagine nel background */
+            background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+            height: 100vh; /* Imposta l'altezza del corpo al 100% dell'altezza dello schermo */
+            margin: 0; /* Rimuovi il margine predefinito */
+            padding: 0; /* Rimuovi il padding predefinito */
+        }
+
     </style>
 
 </head>
