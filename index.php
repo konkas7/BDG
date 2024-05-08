@@ -573,7 +573,7 @@
 			<div class="container">
 				<div class="section-header">
 					<h2>esplora</h2>
-					<p>Esplora la collezione di prodotti a nostra disposizione</p>
+					<p>Esplora i prodotti più venduti per ogni categoria</p>
 				</div><!--/.section-header-->
 				<div class="explore-content">
 					<div class="row">
@@ -981,80 +981,9 @@
 		<!--explore end -->
 
         <!--orari start -->
-		<section id="blog" class="blog">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Orari<br>‎ </h2>
-                </div><!--/.section-header-->
-                <div class="orari-content">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Lunedì</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 08:00 - 12:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: 13:00 - 17:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Martedì</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 08:00 - 12:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: 13:00 - 17:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Mercoledì</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 08:00 - 12:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: 13:00 - 17:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Giovedì</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 08:00 - 12:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: 13:00 - 17:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Venerdì</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 08:00 - 12:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: 13:00 - 17:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-orario-item">
-                                <h3>Sabato</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: 09:00 - 13:00</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: Chiuso</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-md-offset-4">
-                            <div class="single-orario-item">
-                                <h3>Domenica</h3>
-                                <div class="orario-box">
-                                    <div class="orario-mattino">Mattino: Chiuso</div>
-                                    <div class="orario-pomeriggio">Pomeriggio: Chiuso</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/.container-->
-        </section><!--/.orari-->
+		
+
+		<?php include 'assets/php/orari.php' ?>
         
         
         

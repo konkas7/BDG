@@ -7,6 +7,8 @@ $dbname = "my_bottegadigerosa";
 
 // Connessione al database
 $conn = new mysqli($servername, $username, $password, $dbname);
+$conn->set_charset("utf8");
+
 
 // Controllo della connessione
 if ($conn->connect_error) {
