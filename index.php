@@ -7,6 +7,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--side navbar -->
+    	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <!--font-family-->
@@ -63,6 +65,10 @@
 		
 		<!--header-top start -->
 		<header id="header-top" class="header-top">
+			<div id="cart-sidebar" class="w3-sidebar w3-bar-block w3-card" style="width:0;right:0;">
+    			<h3 class="w3-bar-item">Carrello</h3>
+    			<!-- Aggiungi qui il contenuto del carrello -->
+			</div>
 			<ul>
 				<li>
 					<div class="header-top-left">
@@ -87,6 +93,7 @@
 						</ul>
 					</div>
 				</li>
+				
 				<li class="head-responsive-right pull-right">
 					<div class="header-top-right">
 						<ul>
@@ -98,7 +105,7 @@
 									<div class="dropdown">
 										<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
 										<div class="dropdown-content">
-											<a href="#">Carrello</a>
+											<a href="#" class="w3-bar-item w3-button" onclick="openCart()">Carrello</a>
 											<a href="assets/php/logout.php">Logout</a>
 										</div>
 									</div>
@@ -120,6 +127,17 @@
 			</ul>
 					
 		</header><!--/.header-top-->
+		<script>
+			function openCart() {
+				var sidebar = document.getElementById("cart-sidebar");
+				if (sidebar.style.width === "25%") {
+					sidebar.style.width = "0";
+				} else {
+					sidebar.style.width = "25%";
+				}
+			}
+		</script>
+
 		<!--header-top end -->
 
 		<!-- top-area Start -->
