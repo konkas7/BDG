@@ -693,6 +693,16 @@ nav.navbar.bootsnav .navbar-toggle i{color: #365fc7;}
     background-size:cover;
     padding:127px 0 120px;
 }
+
+.welcome-hero, .statistics{
+    z-index: 1;
+}
+
+
+
+/* Aggiungi margini o padding per una migliore visualizzazione */
+
+
 .statistics:before{
     position:absolute;
     content:'';
@@ -1155,8 +1165,6 @@ select {
 #categoria option {
     padding: 5px; /* Aggiunge spaziatura interna agli elementi dell'opzione */
 }
-
-
 
 
 

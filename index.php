@@ -65,77 +65,76 @@
 		
 		<!--header-top start -->
 		<header id="header-top" class="header-top">
-			<div id="cart-sidebar" class="w3-sidebar w3-bar-block w3-card" style="width:0;right:0;">
-    			<h3 class="w3-bar-item">Carrello</h3>
-    			<!-- Aggiungi qui il contenuto del carrello -->
-			</div>
-			<ul>
-				<li>
-					<div class="header-top-left">
-						<ul>
-							<li class="select-opt">
-								<select name="language" id="language">
-									<option value="default">IT</option>
-									<option value="English">EN</option>
-									<option value="French">FR</option>
-								</select>
+			
+
+		<div id="cart-sidebar" class="sidebar">
+			<!-- Contenuto del carrello qui -->
+			<!-- Assicurati che il contenuto del carrello sia accessibile e aggiornabile tramite JavaScript -->
+		</div>
+
+		<ul>
+			<li>
+				<div class="header-top-left">
+					<ul>
+						<li class="select-opt">
+							<select name="language" id="language">
+								<option value="default">IT</option>
+								<option value="English">EN</option>
+								<option value="French">FR</option>
+							</select>
+						</li>
+						<li class="select-opt">
+							<select name="currency" id="currency">
+								<option value="EUR">EUR</option>
+								<option value="USD">USD</option>
+							</select>
+						</li>
+						<li class="select-opt">
+							<!--aggiungere le pagine in lingue diverse oppure aggiungere una libreria che mi traduca automaticamente le parole e modificare anche i prezzi in base alla valuta selezionata-->
+							<a href="#"><span class="lnr lnr-magnifier"></span></a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			
+			<li class="head-responsive-right pull-right">
+				<div class="header-top-right">
+					<ul>
+						<?php if(isset($_SESSION['user_nome'])) { ?>
+							<li class="header-top-contact">
+								Ciao, <?php echo $_SESSION['user_nome']; ?>
 							</li>
-							<li class="select-opt">
-								<select name="currency" id="currency">
-									<option value="EUR">EUR</option>
-									<option value="USD">USD</option>
-								</select>
-							</li>
-							<li class="select-opt">
-								<!--aggiungere le pagine in lingue diverse oppure aggiungere una libreria che mi traduca automaticamente le parole e modificare anche i prezzi in base alla valuta selezionata-->
-								<a href="#"><span class="lnr lnr-magnifier"></span></a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				
-				<li class="head-responsive-right pull-right">
-					<div class="header-top-right">
-						<ul>
-							<?php if(isset($_SESSION['user_nome'])) { ?>
-								<li class="header-top-contact">
-									Ciao, <?php echo $_SESSION['user_nome']; ?>
-								</li>
-								<li class="header-top-contact">
-									<div class="dropdown">
-										<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
-										<div class="dropdown-content">
-											<a href="#" class="w3-bar-item w3-button" onclick="openCart()">Carrello</a>
-											<a href="assets/php/logout.php">Logout</a>
-										</div>
+							<li class="header-top-contact">
+								<div class="dropdown">
+									<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
+									<div class="dropdown-content">
+										<a href="assets/php/carrello.php">Carrello</a>
+										<a href="assets/php/logout.php">Logout</a>
 									</div>
-								</li>
-							<?php } else { ?>
-								<li class="header-top-contact">
-									+39 0345 90079
-								</li>
-								<li class="header-top-contact">
-									<a href="/bdg/assets/html/login.html">Accedi</a>
-								</li>
-								<li class="header-top-contact">
-									<a href="/bdg/assets/html/register.html">Registrati</a>
-								</li>
-							<?php } ?>
-						</ul>
-					</div>
-				</li>
-			</ul>
+								</div>
+							</li>
+						<?php } else { ?>
+							<li class="header-top-contact">
+								+39 0345 90079
+							</li>
+							<li class="header-top-contact">
+								<a href="/bdg/assets/html/login.html">Accedi</a>
+							</li>
+							<li class="header-top-contact">
+								<a href="/bdg/assets/html/register.html">Registrati</a>
+							</li>
+						<?php } ?>
+					</ul>
+				</div>
+			</li>
+		</ul>
+
 					
 		</header><!--/.header-top-->
 		<script>
-			function openCart() {
-				var sidebar = document.getElementById("cart-sidebar");
-				if (sidebar.style.width === "25%") {
-					sidebar.style.width = "0";
-				} else {
-					sidebar.style.width = "25%";
-				}
-			}
+			
+
+
 		</script>
 
 		<!--header-top end -->
