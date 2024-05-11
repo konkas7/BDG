@@ -134,20 +134,25 @@
 
                     // Query per recuperare i prodotti nel carrello dell'utente
                     $user_email = "thomasvitacell@gmail.com"; // Modifica con l'email dell'utente
-                    $sql = "SELECT p.nome, p.prezzo, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                    $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria , COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                             FROM prodotti p
                             INNER JOIN ordine o ON p.id = o.prodotto_id
-                            INNER JOIN carrello c ON o.carrello_id = c.id
-                            INNER JOIN dati_utente u ON c.utente_id = u.id
+                            INNER JOIN carrello car ON o.carrello_id = car.id
+                            INNER JOIN dati_utente u ON car.utente_id = u.id
+                            INNER JOIN categorie cat ON p.categoria_id = cat.id
                             WHERE u.email = '$user_email'
                             GROUP BY p.id";
+
+
                     $result = $conn->query($sql);
 
-                    // Se ci sono prodotti nel carrello, li visualizziamo
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
+
+                            $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+
                             echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
-                            echo '<div class="d-flex flex-row"><img class="rounded" src="https://placeholder.com/40" width="40">';
+                            echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
                             echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
                             echo '<span class="spec">Quantità: ' . $row["quantita"] . '</span></div></div>';
                             echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
@@ -157,6 +162,7 @@
                     } else {
                         echo "<p>Nessun prodotto nel carrello</p>";
                     }
+                    
 
                     $conn->close();
                     ?>
