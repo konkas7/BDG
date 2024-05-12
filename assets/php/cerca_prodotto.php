@@ -171,6 +171,13 @@
 
             $result = $conn->query($sql);
 
+
+           
+
+          
+
+            
+
             // Check if any products are found
             if ($result->num_rows > 0) {
                 // Output data of each row
@@ -227,13 +234,44 @@
         closeModal();
     }
     }
+    
 
     // Funzione per aggiungere un prodotto al carrello
-    function addToCart(productId) {
-        // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
-        // Qui puoi anche fare riferimento all'implementazione di aggiunta al carrello che ho descritto precedentemente
-        alert("Prodotto aggiunto al carrello!");
-    }
+    // Funzione per aggiungere un prodotto al carrello
+        function addToCart(productId) {
+
+            // Recupera l'ID dell'utente dalla sessione
+                var userId = <?php echo json_encode($_SESSION['user_id']); ?>;
+
+            // Verifica se l'ID dell'utente è valido
+            if (!userId) {
+                alert('Utente non valido. Si prega di effettuare il login.');
+                return;
+            }
+            // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
+            fetch('/aggiungi_al_carrello.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId, userId: userId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Errore durante l\'aggiunta del prodotto al carrello.');
+            })
+            .then(data => {
+                // Gestisci la risposta dal server
+                alert(data.message); // Mostra un messaggio di conferma
+            })
+            .catch(error => {
+                console.error('Si è verificato un errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del prodotto al carrello.');
+            });
+        }
+
     // Esegui la funzione openModal quando la pagina si carica
     window.onload = function() {
         openModal();
