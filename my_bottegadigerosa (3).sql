@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 09, 2024 at 06:25 AM
+-- Generation Time: May 12, 2024 at 02:23 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.18
 
@@ -27,9 +27,23 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `carrello` (
-  `id` int(11) NOT NULL,
+  `prodotto_id` int(11) NOT NULL,
+  `carrello_id` int(11) NOT NULL,
   `utente_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `carrello`
+--
+
+INSERT INTO `carrello` (`prodotto_id`, `carrello_id`, `utente_id`) VALUES
+(0, 1, 1),
+(0, 2, 3),
+(0, 3, 4),
+(0, 4, 1),
+(1, 5, 1),
+(2, 6, 1),
+(2, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -67,7 +81,10 @@ INSERT INTO `categorie` (`id`, `nome_categoria`, `url_foto`) VALUES
 (17, 'Prodotti_da_Colazione', 'assets/images/Categorie/Prodotti_da_Colazione/Prodotti_da_Colazione.jpg'),
 (18, 'Detersivi_per_la_Casa', 'assets/images/Categorie/Detersivi_per_la_Casa/Detersivi_per_la_Casa.jpg'),
 (19, 'Prodotti_per_la_Pulizia_Personale', 'assets/images/Categorie/Prodotti_per_la_Pulizia_Personale/Prodotti_per_la_Pulizia_Personale.jpg'),
-(20, 'Accessori_per_la_Cucina', 'assets/images/Categorie/Accessori_per_la_Cucina/Accessori_per_la_Cucina.jpg');
+(20, 'Accessori_per_la_Cucina', 'assets/images/Categorie/Accessori_per_la_Cucina/Accessori_per_la_Cucina.jpg'),
+(21, 'Pasticceria', 'assets/images/Categorie/Pasticceria/Pasticceria.jpg'),
+(22, 'Prodotti per la casa', 'assets/images/Categorie/Prodotti_per_la_casa/Prodotti_per_la_casa.jpg'),
+(23, 'Igiene personale', 'assets/images/Categorie/Igiene_personale/Igiene_personale.jpg');
 
 -- --------------------------------------------------------
 
@@ -94,7 +111,11 @@ INSERT INTO `dati_utente` (`id`, `nome`, `cognome`, `email`, `password`, `telefo
 (4, 'Laura', 'Pesenti BolÃ²', 'lalli03@tiscali.it', 'Caccamolle', '3467214151'),
 (7, 'dasfadf', 'asdfasdf', 'asdfaas@asdfa', 'asdfasdfa', '3333333333'),
 (8, 'Simon', 'Vita', 'simonevita@gmail.com', 'ciaociao', '3402670980'),
-(13, 'Aurora', 'Vita', 'collana524@gmail.com', 'Maiotti6789', '1847295678');
+(13, 'Aurora', 'Vita', 'collana524@gmail.com', 'Maiotti6789', '1847295678'),
+(14, 'Paolo', 'Rossi', 'paolo@email.com', 'password123', '3216549870'),
+(15, 'Giovanna', 'Bianchi', 'giovanna@email.com', 'securepwd', '1234567890'),
+(16, 'Luigi', 'Verdi', 'luigi@email.com', 'topsecret', '9876543210'),
+(17, 'pippo', 'baudo', 'pippopippo@gmail.com', 'Poiupoiu7', '1111111112');
 
 -- --------------------------------------------------------
 
@@ -120,7 +141,10 @@ CREATE TABLE `dipendenti` (
 INSERT INTO `dipendenti` (`id`, `nome`, `cognome`, `data_di_nascita`, `ruolo`, `url_foto`, `descrizione`, `tema`) VALUES
 (1, 'Barbara', 'Pesenti Bolò', '1980-12-18', 'Responsabile', 'assets/images/Dipendenti/Barbara.jpg', 'Le nuove generazioni', 'Degna erede commerciale dei genitori, ha portato avanti l\'attività nonostante le grosse problematiche del periodo e con non pochi sacrifici per non lasciare senza un piccolo appoggio alimentare le persone anziane o impossibilitate a muoversi in auto che abitano nel paese di Gerosa.'),
 (2, 'Rita', 'Pesenti Rossi', '1945-11-28', 'Dipendente Capo', 'assets/images/Dipendenti/Rita.jpg', 'La Gabriella del villaggio', 'Conosciuta da tutti come "Gabri", seconda moglie di Alfredo dapprima ha aiutato il marito nell\'attività, poi ha continuato sola con tanta passione e spirito di sacrificio.'),
-(3, 'Alfredo', 'Pesenti Bolò', '1924-06-17', 'Fondatore', 'assets/images/Dipendenti/Alfredo.jpg', 'La causa prima di ogni cosa', 'Capostipite della famiglia, Cavaliere della Repubblica e Croce al merito di guerra. Dal 1960 insieme alla prima moglie Elsa Arnoldi apre l\'attività commerciale che comprende sia il negozio di generi alimentari, frutta, verdura, salumi, formaggi e utili per la casa, ma anche il commercio di prodotti locali tipici della zona. Uomo di grande abilità commerciale e importante carisma personale.');
+(3, 'Alfredo', 'Pesenti Bolò', '1924-06-17', 'Fondatore', 'assets/images/Dipendenti/Alfredo.jpg', 'La causa prima di ogni cosa', 'Capostipite della famiglia, Cavaliere della Repubblica e Croce al merito di guerra. Dal 1960 insieme alla prima moglie Elsa Arnoldi apre l\'attività commerciale che comprende sia il negozio di generi alimentari, frutta, verdura, salumi, formaggi e utili per la casa, ma anche il commercio di prodotti locali tipici della zona. Uomo di grande abilità commerciale e importante carisma personale.'),
+(4, 'Anna', 'Verdi', '1975-08-10', 'Cassiera', 'assets/images/Dipendenti/Anna.jpg', 'La passione per il cibo e per il cliente', 'Specialista in gastronomia e mixology, porta un tocco personale ai prodotti del nostro negozio.'),
+(5, 'Mario', 'Bianchi', '1988-03-25', 'Addetto alle vendite', 'assets/images/Dipendenti/Mario.jpg', 'Dedicato e affidabile', 'Esperto nella selezione di prodotti per l’home decor e l’arredamento.'),
+(6, 'Sara', 'Rossi', '1990-11-15', 'Responsabile Magazzino', 'assets/images/Dipendenti/Sara.jpg', 'L’organizzazione è la sua forza', 'Si occupa della logistica e del magazzino, garantendo la qualità dei prodotti e la soddisfazione dei clienti.');
 
 -- --------------------------------------------------------
 
@@ -159,6 +183,25 @@ CREATE TABLE `ordine` (
   `prodotto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `ordine`
+--
+
+INSERT INTO `ordine` (`id`, `carrello_id`, `prodotto_id`) VALUES
+(1, 2, 3),
+(2, 3, 8),
+(3, 4, 12),
+(4, 4, 17),
+(5, 2, 5),
+(6, 3, 1),
+(7, 2, 1),
+(8, 2, 1),
+(9, 3, 1),
+(10, 3, 1),
+(11, 3, 1),
+(12, 4, 1),
+(13, 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -193,7 +236,10 @@ INSERT INTO `prodotti` (`id`, `nome`, `categoria_id`, `prezzo`, `origine`, `forn
 (11, 'Lenticchie', 10, '1.00', 'Italia', 'Fornitore K', 'assets/images/categorie/Legumi/Prodotti/lenticchie.jpg'),
 (12, 'Olio Extra Vergine di Oliva', 11, '8.50', 'Italia', 'Fornitore L', 'assets/images/categorie/Olio_e_Condimenti/Prodotti/olio.jpg'),
 (13, 'Acqua Minerale', 12, '0.50', 'Italia', 'Fornitore M', 'assets/images/categorie/Bevande_Analcoliche/Prodotti/acqua.jpg'),
-(14, 'Vino Rosso Chianti', 13, '12.00', 'Italia', 'Fornitore N', 'assets/images/categorie/Bevande_Alcoliche/Prodotti/vino.jpg');
+(14, 'Vino Rosso Chianti', 13, '12.00', 'Italia', 'Fornitore N', 'assets/images/categorie/Bevande_Alcoliche/Prodotti/vino.jpg'),
+(16, 'Ciambella', 21, '5.99', 'Italia', 'Fornitore X', 'assets/images/Categorie/Pasticceria/ciambella.jpg'),
+(17, 'Detersivo Lavatrice', 22, '8.49', 'Italia', 'Fornitore Y', 'assets/images/Categorie/Prodotti_per_la_casa/detersivo.jpg'),
+(18, 'Shampoo', 23, '4.29', 'Italia', 'Fornitore Z', 'assets/images/Categorie/Igiene_personale/shampoo.jpg');
 
 -- --------------------------------------------------------
 
@@ -214,7 +260,10 @@ CREATE TABLE `recensioni` (
 
 INSERT INTO `recensioni` (`id`, `chi`, `cosa`, `voto`) VALUES
 (1, 'Cliente1', 'Mela di ottima qualità, molto gustosa!', 5),
-(2, 'Cliente2', 'Prosciutto crudo delizioso, consigliatissimo!', 4);
+(2, 'Cliente2', 'Prosciutto crudo delizioso, consigliatissimo!', 4),
+(3, 'Cliente3', 'Mela buonissima, fresca e croccante!', 5),
+(4, 'Cliente4', 'Prosciutto crudo di ottima qualità, gustoso!', 5),
+(5, 'Cliente5', 'Servizio impeccabile, personale gentile e disponibile.', 4);
 
 --
 -- Indexes for dumped tables
@@ -224,7 +273,7 @@ INSERT INTO `recensioni` (`id`, `chi`, `cosa`, `voto`) VALUES
 -- Indexes for table `carrello`
 --
 ALTER TABLE `carrello`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`carrello_id`),
   ADD KEY `utente_id` (`utente_id`);
 
 --
@@ -280,37 +329,37 @@ ALTER TABLE `recensioni`
 -- AUTO_INCREMENT for table `carrello`
 --
 ALTER TABLE `carrello`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `carrello_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `dati_utente`
 --
 ALTER TABLE `dati_utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `dipendenti`
 --
 ALTER TABLE `dipendenti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `prodotti`
 --
 ALTER TABLE `prodotti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `recensioni`
 --
 ALTER TABLE `recensioni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -325,7 +374,7 @@ ALTER TABLE `carrello`
 -- Constraints for table `ordine`
 --
 ALTER TABLE `ordine`
-  ADD CONSTRAINT `ordine_ibfk_1` FOREIGN KEY (`carrello_id`) REFERENCES `carrello` (`id`),
+  ADD CONSTRAINT `ordine_ibfk_1` FOREIGN KEY (`carrello_id`) REFERENCES `carrello` (`carrello_id`),
   ADD CONSTRAINT `ordine_ibfk_2` FOREIGN KEY (`prodotto_id`) REFERENCES `prodotti` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

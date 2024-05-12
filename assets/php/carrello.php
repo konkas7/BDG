@@ -129,17 +129,24 @@
                     <!-- Codice PHP per recuperare i prodotti dal carrello -->
                     <?php
                         // Connessione al database
+                        session_start();
                         include 'db_connection.php';
 
-                        $user_email = "thomasvitacell@gmail.com"; // Modifica con l'email dell'utente
-                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria , COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                        if(isset($_SESSION['user_id'])) {
+                            $userId = $_SESSION['user_id'];
+                        } else {
+                            $userId = "999"; // o qualsiasi valore di default per gli utenti non autenticati
+                        }
+                        
+                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                                 FROM prodotti p
                                 INNER JOIN ordine o ON p.id = o.prodotto_id
-                                INNER JOIN carrello car ON o.carrello_id = car.prodotto_id
+                                INNER JOIN carrello car ON o.carrello_id = car.carrello_id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
                                 INNER JOIN categorie cat ON p.categoria_id = cat.id
-                                WHERE u.email = '$user_email'
+                                WHERE u.id = '$userId' 
                                 GROUP BY p.id";
+                        
 
                         // Esegui la query SQL
                         $result = $conn->query($sql);
