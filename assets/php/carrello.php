@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,45 +126,33 @@
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="product-details mr-2">
+                    <!-- Codice PHP per recuperare i prodotti dal carrello -->
                     <?php
-                    include 'db_connection.php';
+                        // Connessione al database
+                        include 'db_connection.php';
 
-                    if (!isset($_SESSION['user_id'])) {
-                        header("location: login.php");
-                        exit;
-                    }
-
-                    $user_id = $_SESSION['user_id'];
-
-                    // Query per recuperare l'email dell'utente dal database
-                    $sql_email = "SELECT email FROM dati_utente WHERE id = '$user_id'";
-                    $result_email = $conn->query($sql_email);
-
-                    if ($result_email->num_rows > 0) {
-                        $row_email = $result_email->fetch_assoc();
-                        $user_email = $row_email['email'];
-
-                        // Query per recuperare i prodotti nel carrello dell'utente
+                        $user_email = "thomasvitacell@gmail.com"; // Modifica con l'email dell'utente
                         $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria , COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                                 FROM prodotti p
                                 INNER JOIN ordine o ON p.id = o.prodotto_id
-                                INNER JOIN carrello car ON o.carrello_id = car.id
+                                INNER JOIN carrello car ON o.carrello_id = car.prodotto_id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
                                 INNER JOIN categorie cat ON p.categoria_id = cat.id
                                 WHERE u.email = '$user_email'
                                 GROUP BY p.id";
 
+                        // Esegui la query SQL
                         $result = $conn->query($sql);
 
-                        $totale = 0;
+                        // Controllo degli errori SQL
+                        if (!$result) {
+                            die("Errore nella query: " . $conn->error);
+                        }
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                // Aggiungi il prezzo totale di ogni prodotto al totale complessivo
-                                $totale += $row["prezzo_totale"];
-
-                                // Visualizza i dettagli del prodotto nel carrello...
                                 $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+
                                 echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
                                 echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
                                 echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
@@ -176,56 +161,43 @@
                                 echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
                                 echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
                             }
-
-                            // Calcola le tasse come il 5% del totale
-                            $tasse = $totale * 0.05;
-
-                            // Calcola il totale complessivo aggiungendo le tasse
-                            $totale_complessivo = $totale + $tasse;
                         } else {
                             echo "<p>Nessun prodotto nel carrello</p>";
                         }
-                    } else {
-                        echo "<p>Utente non trovato</p>";
-                    }
 
-                    $conn->close();
-                    ?>
+                        // Chiudi la connessione al database
+                        $conn->close();
+                        ?>
+
+                    <!-- Fine del codice PHP per recuperare i prodotti dal carrello -->
+
+                    <!-- Altri dettagli del carrello -->
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="payment-info">
-                    <div class="d-flex justify-content-between align-items-center"><span>Card details</span><img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
+                <div class="col-md-4">
+                    <div class="payment-info">
+                        <div class="d-flex justify-content-between align-items-center"><span>Card details</span><img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
 
-                    <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
+                            <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
 
-                    <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span> </label>
+                            <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span> </label>
 
 
-                    <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
-                    <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
-                    <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
-                    <div class="row">
-                        <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
-                        <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
-                    </div>
-                    <hr class="line">
-                    <!-- Dettagli pagamento -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold d-block">Totale</span>
-                        <span class="d-block ml-5 font-weight-bold">$<?php echo number_format($totale, 2); ?></span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold d-block">Tasse (5%)</span>
-                        <span class="d-block ml-5 font-weight-bold">$<?php echo number_format($tasse, 2); ?></span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold d-block">Totale Complessivo</span>
-                        <span class="d-block ml-5 font-weight-bold">$<?php echo number_format($totale_complessivo, 2); ?></span>
+                            <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
+                            <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
+                            <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
+                            <div class="row">
+                                <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
+                                <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
+                            </div>
+                            <hr class="line">
+                            <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$3000.00</span></div>
+                            <div class="d-flex justify-content-between information"><span>Shipping</span><span>$20.00</span></div>
+                            <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$3020.00</span></div><button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><span>$3020.00</span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

@@ -108,8 +108,13 @@
 								<div class="dropdown">
 									<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
 									<div class="dropdown-content">
-										<a href="assets/php/carrello.php">Carrello</a>
-										<a href="assets/php/logout.php">Logout</a>
+										<form action="/bdg/assets/php/carrello.php" method="POST">
+											<?php if(isset($_SESSION['user_id'])) { ?>
+												<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+											<?php } ?>
+											<a href="assets/php/carrello.php" onclick="document.getElementById('carrelloForm').submit();">Carrello</a>
+											<a href="assets/php/logout.php">Logout</a>
+										</form>
 									</div>
 								</div>
 							</li>
