@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,9 +161,20 @@
             // Include database connection
             include 'db_connection.php';
 
+            // Controlla se l'utente è loggato
+            if (!isset($_SESSION['user_id'])) {
+                // Se l'utente non è loggato, reindirizzalo alla pagina di login
+                header("location: login.php");
+                exit; // Termina lo script dopo il reindirizzamento
+            }
+
+            // Recupera l'ID dell'utente dalla sessione
+            $userId = $_SESSION['user_id'];
+
             // Retrieve category and name selections from the form
             $categoria = $_POST['categoria'];
             $nome = $_POST['nome'];
+            
 
             // Query to fetch products based on category and name selections
             $sql = "SELECT p.*, c.nome_categoria 
@@ -195,7 +209,7 @@
                     echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
                     echo "</div>"; // Closed product-info div
                     // Button to add to cart
-                    echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ")'>Carrello</button>";
+                    echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $userId . ")'>Carrello</button>";
                     echo "</div>";
                 }
             } else {
@@ -238,39 +252,39 @@
 
     // Funzione per aggiungere un prodotto al carrello
     // Funzione per aggiungere un prodotto al carrello
-        function addToCart(productId) {
-
-            // Recupera l'ID dell'utente dalla sessione
-                var userId = <?php echo json_encode($_SESSION['user_id']); ?>;
-
-            // Verifica se l'ID dell'utente è valido
-            if (!userId) {
-                alert('Utente non valido. Si prega di effettuare il login.');
-                return;
-            }
-            // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
-            fetch('/aggiungi_al_carrello.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId: productId, userId: userId })
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
+    function addToCart(productId, userId) {
+        // Creazione dell'oggetto XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        
+        // URL del file PHP che gestisce l'aggiunta al carrello
+        var url = "../php/aggiungi_al_carrello.php";
+        
+        // Parametri da inviare
+        var params = "productId=" + productId + "&userId=" + userId;
+        
+        // Configurazione della richiesta
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        
+        // Funzione di callback quando la richiesta viene completata
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                // Parse della risposta JSON
+                var response = JSON.parse(xhr.responseText);
+                
+                // Visualizzazione del messaggio di conferma o dell'errore
+                if(response.error) {
+                    alert(response.error);
+                } else {
+                    alert(response.message);
                 }
-                throw new Error('Errore durante l\'aggiunta del prodotto al carrello.');
-            })
-            .then(data => {
-                // Gestisci la risposta dal server
-                alert(data.message); // Mostra un messaggio di conferma
-            })
-            .catch(error => {
-                console.error('Si è verificato un errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta del prodotto al carrello.');
-            });
+            }
         }
+        
+        // Invio della richiesta con i parametri
+        xhr.send(params);
+    }
+
 
     // Esegui la funzione openModal quando la pagina si carica
     window.onload = function() {

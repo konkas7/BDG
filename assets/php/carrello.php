@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,7 +130,6 @@
             <div class="col-md-8">
                 <div class="product-details mr-2">
                     <?php
-                    session_start();
                     include 'db_connection.php';
 
                     if (!isset($_SESSION['user_id'])) {
@@ -171,7 +173,7 @@
                                 echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
                                 echo '<span class="spec">Quantità: ' . $row["quantita"] . '</span></div></div>';
                                 echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
-                                echo '<span class="d-block ml-5 font-weight-bold">€' . $row["prezzo_totale"] . '</span>';
+                                echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
                                 echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
                             }
 
@@ -214,7 +216,7 @@
                         <span class="d-block ml-5 font-weight-bold">$<?php echo number_format($totale, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold d-block">Tasse</span>
+                        <span class="font-weight-bold d-block">Tasse (5%)</span>
                         <span class="d-block ml-5 font-weight-bold">$<?php echo number_format($tasse, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">

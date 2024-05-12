@@ -186,7 +186,13 @@
 						Templio di sapori e culture tramandate di generazione in generazione
 					</p>
 				</div>
+
+
+
 				<form action="/bdg/assets/php/cerca_prodotto.php" method="POST">
+					    <!-- Aggiungi un campo nascosto per l'id utente, BISOGNA METTERE CHE SE NON SI è LOGGATI SI FA QUALCHE TIPO DI CONTROLLO -->
+ 					    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+
 					<div class="welcome-hero-serch-box">
 						<div class="welcome-hero-form">
 							<div class="single-welcome-hero-form">

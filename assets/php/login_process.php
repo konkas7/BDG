@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_nome'] = $row['nome'];
         $_SESSION['user_cognome'] = $row['cognome'];
         $_SESSION['user_email'] = $row['email'];
-        header("location: ../../index.php");
+        header("location: ../../index.php?user_id=" . $_SESSION['user_id']);
     } else {
         // Imposta il messaggio di errore nella variabile di sessione
         $_SESSION['error_message'] = "Email o password errate.";
@@ -34,5 +34,4 @@ $conn->close();
 
 
 include 'carrello.php';
-include 'cerca_prodotto.php'
 ?>
