@@ -190,8 +190,10 @@
 
 
 				<form action="/bdg/assets/php/cerca_prodotto.php" method="POST">
-					    <!-- Aggiungi un campo nascosto per l'id utente, BISOGNA METTERE CHE SE NON SI è LOGGATI SI FA QUALCHE TIPO DI CONTROLLO -->
- 					    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+					    <!-- Aggiungi un campo nascosto solo se l'utente è loggato -->
+						<?php if(isset($_SESSION['user_id'])) { ?>
+							<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+						<?php } ?>
 
 					<div class="welcome-hero-serch-box">
 						<div class="welcome-hero-form">

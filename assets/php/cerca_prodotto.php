@@ -161,15 +161,7 @@
             // Include database connection
             include 'db_connection.php';
 
-            // Controlla se l'utente è loggato
-            if (!isset($_SESSION['user_id'])) {
-                // Se l'utente non è loggato, reindirizzalo alla pagina di login
-                header("location: login.php");
-                exit; // Termina lo script dopo il reindirizzamento
-            }
-
-            // Recupera l'ID dell'utente dalla sessione
-            $userId = $_SESSION['user_id'];
+           
 
             // Retrieve category and name selections from the form
             $categoria = $_POST['categoria'];
@@ -209,7 +201,10 @@
                     echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
                     echo "</div>"; // Closed product-info div
                     // Button to add to cart
-                    echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $userId . ")'>Carrello</button>";
+                    // Bottone per aggiungere al carrello (visibile solo se l'utente è loggato)
+                    if(isset($_SESSION['user_id'])) {
+                        echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $_SESSION['user_id'] . ")'>Carrello</button>";
+                    }                    
                     echo "</div>";
                 }
             } else {
@@ -238,8 +233,9 @@
 
     // When the user clicks on <span> (x), close the modal
     function closeModal() {
-    modal.style.display = "none";
-    window.location.href = "/bdg/index.php";
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        window.location.href = "/bdg/index.php";
     }
 
     // When the user clicks anywhere outside of the modal, close it
@@ -253,6 +249,15 @@
     // Funzione per aggiungere un prodotto al carrello
     // Funzione per aggiungere un prodotto al carrello
     function addToCart(productId, userId) {
+
+
+        // Verifica se l'utente è loggato
+        if (!userId) {
+            alert('Utente non valido. Si prega di effettuare il login.');
+            return;
+        }
+
+
         // Creazione dell'oggetto XMLHttpRequest
         var xhr = new XMLHttpRequest();
         
