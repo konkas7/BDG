@@ -130,39 +130,60 @@
                     <?php
                     // Connessione al database
                     // Includi il file di connessione al database
+
+                    session_start();
                     include 'db_connection.php';
 
-                    // Query per recuperare i prodotti nel carrello dell'utente
-                    $user_email = "thomasvitacell@gmail.com"; // Modifica con l'email dell'utente
-                    $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria , COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
-                            FROM prodotti p
-                            INNER JOIN ordine o ON p.id = o.prodotto_id
-                            INNER JOIN carrello car ON o.carrello_id = car.id
-                            INNER JOIN dati_utente u ON car.utente_id = u.id
-                            INNER JOIN categorie cat ON p.categoria_id = cat.id
-                            WHERE u.email = '$user_email'
-                            GROUP BY p.id";
+                    if (!isset($_SESSION['user_id'])) {
+                        header("location: login.php");
+                        exit;
+                    }
+
+                    $user_id = $_SESSION['user_id'];
+
+                    // Query per recuperare l'email dell'utente dal database
+                    // Supponiamo che l'utente sia già loggato e il suo ID sia disponibile come $user_id
+                    $sql_email = "SELECT email FROM dati_utente WHERE id = '$user_id'";
+                    $result_email = $conn->query($sql_email);
+
+                    if ($result_email->num_rows > 0) {
+                        // Ottieni l'email dall'array risultato
+                        $row_email = $result_email->fetch_assoc();
+                        $user_email = $row_email['email'];
+
+                        // Query per recuperare i prodotti nel carrello dell'utente
+                    
+                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria , COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                                FROM prodotti p
+                                INNER JOIN ordine o ON p.id = o.prodotto_id
+                                INNER JOIN carrello car ON o.carrello_id = car.id
+                                INNER JOIN dati_utente u ON car.utente_id = u.id
+                                INNER JOIN categorie cat ON p.categoria_id = cat.id
+                                WHERE u.email = '$user_email'
+                                GROUP BY p.id";
 
 
-                    $result = $conn->query($sql);
+                        $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
 
-                            $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 
-                            echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
-                            echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
-                            echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
-                            echo '<span class="spec">Quantità: ' . $row["quantita"] . '</span></div></div>';
-                            echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
-                            echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
-                            echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
+                                echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
+                                echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
+                                echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
+                                echo '<span class="spec">Quantità: ' . $row["quantita"] . '</span></div></div>';
+                                echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
+                                echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
+                                echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
+                            }
+                        } else {
+                            echo "<p>Nessun prodotto nel carrello</p>";
                         }
                     } else {
-                        echo "<p>Nessun prodotto nel carrello</p>";
+                        echo "<p>Utente non trovato</p>";
                     }
-                    
 
                     $conn->close();
                     ?>
