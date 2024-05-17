@@ -122,10 +122,10 @@
                 <div class="product-details mr-2">
                     <div class="d-flex flex-row align-items-center">
                         <i class="fa fa-long-arrow-left"></i>
-                        <span class="ml-2">Continue Shopping</span>
+                        <span class="ml-2">Continua a fare shopping</span>
                     </div>
                     <hr>
-                    <h6 class="mb-0">Shopping cart</h6>
+                    <h6 class="mb-0">Carrello</h6>
                     <div class="d-flex justify-content-between">
                         <span id="cart-count"></span>
                         <div class="d-flex flex-row align-items-center">
@@ -178,7 +178,7 @@
                                 echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
                                 echo '<span class="spec">' . $row["origine"] . '</span></div></div>';
                                 echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
-                                echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
+                                echo '<span class="d-block ml-5 font-weight-bold">€' . $row["prezzo_totale"] . '</span>';
                                 echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
                             }
                         } else {
@@ -194,7 +194,7 @@
                     ?>
 
                     <script>
-                        document.getElementById("cart-count").innerText = "You have <?php echo $totalItems; ?> items in your cart";
+                        document.getElementById("cart-count").innerText = "Hai <?php echo $totalItems; ?> elementi nel tuo carrello";
                     </script>
                     <!-- Fine del codice PHP per recuperare i prodotti dal carrello -->
                 </div>
@@ -202,10 +202,10 @@
             <div class="col-md-4">
                 <div class="payment-info">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span>Card details</span>
+                        <span>Informazioni carta</span>
                         <img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30">
                     </div>
-                    <span class="type d-block mt-3 mb-1">Card type</span>
+                    <span class="type d-block mt-3 mb-1">Tipologia Carta</span>
                     <label class="radio">
                         <input type="radio" name="card" value="payment" checked>
                         <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span>
@@ -223,16 +223,16 @@
                         <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span>
                     </label>
                     <div>
-                        <label class="credit-card-label">Name on card</label>
-                        <input type="text" class="form-control credit-inputs" placeholder="Name">
+                        <label class="credit-card-label">Nome sulla carta</label>
+                        <input type="text" class="form-control credit-inputs" placeholder="Nome">
                     </div>
                     <div>
-                        <label class="credit-card-label">Card number</label>
+                        <label class="credit-card-label">Numero di carta</label>
                         <input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="credit-card-label">Date</label>
+                            <label class="credit-card-label">Data di scadenza</label>
                             <input type="text" class="form-control credit-inputs" placeholder="12/24">
                         </div>
                         <div class="col-md-6">
@@ -242,20 +242,20 @@
                     </div>
                     <hr class="line">
                     <div class="d-flex justify-content-between information">
-                        <span>Subtotal</span>
-                        <span>$<?php echo number_format($totalPrice, 2); ?></span>
+                        <span>Subtotale</span>
+                        <span>€<?php echo number_format($totalPrice, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between information">
-                        <span>Shipping (3%)</span>
-                        <span>$<?php echo number_format($tax, 2); ?></span>
+                        <span>Consegna (3%)</span>
+                        <span>€<?php echo number_format($tax, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between information">
-                        <span>Total (Incl. taxes)</span>
-                        <span>$<?php echo number_format($totalWithTax, 2); ?></span>
+                        <span>Totale (Incl. spedizione)</span>
+                        <span>€<?php echo number_format($totalWithTax, 2); ?></span>
                     </div>
                     <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
-                        <span>$<?php echo number_format($totalWithTax, 2); ?></span>
-                        <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                        <span>€<?php echo number_format($totalWithTax, 2); ?></span>
+                        <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
                     </button>
                 </div>
             </div>
