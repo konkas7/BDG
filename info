@@ -6,7 +6,8 @@ COMPLETATE
 
 #carrello
 - front-end
-
+#doppia_categoria
+- copiare esattamente tutto quello che ho fatto nella ricerca
 
 
 
@@ -17,3 +18,9 @@ DA FARE
 - non funziona il sort del carrello
 - non funziona il delete del carrello
 - pagamento completo
+
+#doppia_categoria
+
+
+#index.php
+- metodo post anche per doppia categoria

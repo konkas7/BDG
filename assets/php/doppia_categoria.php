@@ -189,7 +189,10 @@
                     echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
                     echo "</div>"; // Closed product-info div
                     // Button to add to cart
-                    echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ")'>Carrello</button>";
+                    // Bottone per aggiungere al carrello (visibile solo se l'utente è loggato)
+                    if(isset($_SESSION['user_id'])) {
+                        echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $_SESSION['user_id'] . ")'>Carrello</button>";
+                    }                          
                     echo "</div>";
                 }
             } else {
@@ -232,10 +235,46 @@ window.onclick = function(event) {
 }
 
 // Funzione per aggiungere un prodotto al carrello
-function addToCart(productId) {
-    // Esegui una richiesta AJAX per aggiungere il prodotto al carrello
-    // Qui puoi anche fare riferimento all'implementazione di aggiunta al carrello che ho descritto precedentemente
-    alert("Prodotto aggiunto al carrello!");
+function addToCart(productId, userId) {
+
+
+// Verifica se l'utente è loggato
+if (!userId) {
+    alert('Utente non valido. Si prega di effettuare il login.');
+    return;
+}
+
+
+// Creazione dell'oggetto XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+// URL del file PHP che gestisce l'aggiunta al carrello
+var url = "../php/aggiungi_al_carrello.php";
+
+// Parametri da inviare
+var params = "productId=" + productId + "&userId=" + userId;
+
+// Configurazione della richiesta
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+// Funzione di callback quando la richiesta viene completata
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        // Parse della risposta JSON
+        var response = JSON.parse(xhr.responseText);
+        
+        // Visualizzazione del messaggio di conferma o dell'errore
+        if(response.error) {
+            alert(response.error);
+        } else {
+            alert(response.message);
+        }
+    }
+}
+
+// Invio della richiesta con i parametri
+xhr.send(params);
 }
 
 // Esegui la funzione openModal al caricamento della pagina
