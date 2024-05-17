@@ -11,5 +11,8 @@ COMPLETATE
 
 DA FARE
 
-
-
+#carrello
+- non funziona l'hover del cursore sulla freccia indietro
+- non funziona il sort del carrello
+- non funziona il delete del carrello
+- pagamento completo
