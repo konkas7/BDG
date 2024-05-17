@@ -165,9 +165,11 @@
                             die("Errore nella query: " . $conn->error);
                         }
 
+                        $totalPrice = 0; // Inizializza il totale
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                                $totalPrice += $row["prezzo_totale"]; // Aggiungi al totale
 
                                 echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
                                 echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
@@ -180,6 +182,10 @@
                         } else {
                             echo "<p>Nessun prodotto nel carrello</p>";
                         }
+
+                        // Calcolo delle tasse (3%)
+                        $tax = $totalPrice * 0.03;
+                        $totalWithTax = $totalPrice + $tax;
 
                         // Chiudi la connessione al database
                         $conn->close();
@@ -231,18 +237,18 @@
                     <hr class="line">
                     <div class="d-flex justify-content-between information">
                         <span>Subtotal</span>
-                        <span>$3000.00</span>
+                        <span>$<?php echo number_format($totalPrice, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between information">
-                        <span>Shipping</span>
-                        <span>$20.00</span>
+                        <span>Shipping (3%)</span>
+                        <span>$<?php echo number_format($tax, 2); ?></span>
                     </div>
                     <div class="d-flex justify-content-between information">
-                        <span>Total(Incl. taxes)</span>
-                        <span>$3020.00</span>
+                        <span>Total (Incl. taxes)</span>
+                        <span>$<?php echo number_format($totalWithTax, 2); ?></span>
                     </div>
                     <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
-                        <span>$3020.00</span>
+                        <span>$<?php echo number_format($totalWithTax, 2); ?></span>
                         <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
                     </button>
                 </div>
