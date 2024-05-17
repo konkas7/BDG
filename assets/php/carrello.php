@@ -127,7 +127,7 @@
                     <hr>
                     <h6 class="mb-0">Shopping cart</h6>
                     <div class="d-flex justify-content-between">
-                        <span>You have 4 items in your cart</span>
+                        <span id="cart-count"></span>
                         <div class="d-flex flex-row align-items-center">
                             <span class="text-black-50">Sort by:</span>
                             <div class="price ml-2">
@@ -149,7 +149,7 @@
                             $userId = "999"; // o qualsiasi valore di default per gli utenti non autenticati
                         }
 
-                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, p.origine, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                                 FROM carrello car
                                 INNER JOIN prodotti p ON car.prodotto_id = p.id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
@@ -166,15 +166,17 @@
                         }
 
                         $totalPrice = 0; // Inizializza il totale
+                        $totalItems = 0; // Inizializza il conteggio degli articoli
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
                                 $totalPrice += $row["prezzo_totale"]; // Aggiungi al totale
+                                $totalItems += $row["quantita"]; // Aggiungi al conteggio degli articoli
 
                                 echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
                                 echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
                                 echo '<div class="ml-2"><span class="font-weight-bold d-block">' . $row["nome"] . '</span>';
-                                echo '<span class="spec">Quantità: ' . $row["quantita"] . '</span></div></div>';
+                                echo '<span class="spec">' . $row["origine"] . '</span></div></div>';
                                 echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
                                 echo '<span class="d-block ml-5 font-weight-bold">$' . $row["prezzo_totale"] . '</span>';
                                 echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
@@ -190,6 +192,10 @@
                         // Chiudi la connessione al database
                         $conn->close();
                     ?>
+
+                    <script>
+                        document.getElementById("cart-count").innerText = "You have <?php echo $totalItems; ?> items in your cart";
+                    </script>
                     <!-- Fine del codice PHP per recuperare i prodotti dal carrello -->
                 </div>
             </div>
