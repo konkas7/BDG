@@ -121,7 +121,7 @@
             <div class="col-md-8">
                 <div class="product-details mr-2">
                     <div class="d-flex flex-row align-items-center">
-                        <i class="fa fa-long-arrow-left"></i>
+                        <i class="fa fa-long-arrow-left" id="back-arrow"></i>
                         <span class="ml-2">Continua a fare shopping</span>
                     </div>
                     <hr>
@@ -195,6 +195,9 @@
 
                     <script>
                         document.getElementById("cart-count").innerText = "Hai <?php echo $totalItems; ?> elementi nel tuo carrello";
+                        document.getElementById("back-arrow").addEventListener("click", function() {
+                            window.history.back();
+                        });
                     </script>
                     <!-- Fine del codice PHP per recuperare i prodotti dal carrello -->
                 </div>

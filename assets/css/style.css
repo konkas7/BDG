@@ -1167,6 +1167,10 @@ select {
 }
 
 
+/* Aggiungi questa regola CSS */
+#back-arrow:hover {
+    cursor: pointer !important;
+}
 
 
 
