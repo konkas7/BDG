@@ -139,13 +139,12 @@
                         }
                         
                         $sql = "SELECT p.nome, p.prezzo, p.url_foto, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
-                                FROM prodotti p
-                                INNER JOIN ordine o ON p.id = o.prodotto_id
-                                INNER JOIN carrello car ON o.carrello_id = car.carrello_id
+                                FROM carrello car
+                                INNER JOIN prodotti p ON car.prodotto_id = p.id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
                                 INNER JOIN categorie cat ON p.categoria_id = cat.id
-                                WHERE u.id = '$userId' 
-                                GROUP BY p.id";
+                                WHERE u.id = '$userId'
+                                GROUP BY p.id, p.nome, p.prezzo, p.url_foto, cat.nome_categoria";
                         
 
                         // Esegui la query SQL
