@@ -629,6 +629,17 @@ nav.navbar.bootsnav .navbar-toggle i{color: #365fc7;}
     -o-transition:.3s;
     transition: .3s;
 }
+.testimonial-img img {
+    max-width: 100%;
+    max-height: 200px; /* Imposta l'altezza massima desiderata */
+    width: auto;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover; /* Mantiene il rapporto d'aspetto e ritaglia l'immagine per riempire il contenitore */
+}
+
 .testimonial-person {
     margin-left: 15px;
     margin-top: 11px;
