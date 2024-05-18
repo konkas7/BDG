@@ -8,7 +8,9 @@ COMPLETATE
 - front-end
 #doppia_categoria
 - copiare esattamente tutto quello che ho fatto nella ricerca
-
+- aggiunto session_start()
+#index.php
+- metodo post anche per doppia categoria
 
 
 DA FARE
@@ -23,7 +25,6 @@ DA FARE
 
 
 #index.php
-- metodo post anche per doppia categoria
 - ricerca da nome
 - nav bar finale non funzionante
 
