@@ -1,49 +1,47 @@
 <?php
 session_start();
 include 'db_connection.php';
+header('Content-Type: application/json');
+
+$response = ['success' => false, 'message' => ''];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if all necessary POST fields are set
-    if(isset($_POST['nome'], $_POST['email'], $_POST['telefono'], $_POST['password'])) {
+    if (isset($_POST['nome'], $_POST['email'], $_POST['telefono'], $_POST['password'])) {
         $nome = $_POST['nome'];
         $email = $_POST['email'];
         $telefono = $_POST['telefono'];
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Crittografa la password
 
         if (empty($nome) || empty($email) || empty($password) || empty($telefono)) {
-            $_SESSION['error_message'] = "Compilare tutti i campi.";
-            header("location: modern_logic_page.php");
-            exit; // Termina lo script dopo il reindirizzamento
-        }
-        
-
-        $check_query = "SELECT * FROM dati_utente WHERE email='$email' OR telefono='$telefono'";
-        $check_result = $conn->query($check_query);
-
-        if ($check_result->num_rows > 0) {
-            $_SESSION['error_message'] = "Email o numero già esistenti.";
-            header("location: modern_logic_page.php");
-            exit; // Termina lo script dopo il reindirizzamento
+            $response['message'] = "Compilare tutti i campi.";
         } else {
-            $insert_query = "INSERT INTO dati_utente (nome, email, telefono, password) 
-                            VALUES ('$nome', '$email', '$telefono', '$password')";
+            $check_query = "SELECT * FROM dati_utente WHERE email=? OR telefono=?";
+            $stmt = $conn->prepare($check_query);
+            $stmt->bind_param('ss', $email, $telefono);
+            $stmt->execute();
+            $check_result = $stmt->get_result();
 
-            if ($conn->query($insert_query) === TRUE) {
-                $_SESSION['register_success'] = "Registrazione completata con successo. Effettua il login.";
-                header("location: modern_login_page.php");
-                exit(); // Stop script execution after header redirect
+            if ($check_result->num_rows > 0) {
+                $response['message'] = "Email o numero già esistenti.";
             } else {
-                // Handle database insertion error
+                $insert_query = "INSERT INTO dati_utente (nome, email, telefono, password) VALUES (?, ?, ?, ?)";
+                $stmt = $conn->prepare($insert_query);
+                $stmt->bind_param('ssss', $nome, $email, $telefono, $password);
+
+                if ($stmt->execute()) {
+                    $response['success'] = true;
+                    $response['message'] = "Registrazione completata con successo. Effettua il login.";
+                } else {
+                    $response['message'] = "Errore durante la registrazione. Riprova più tardi.";
+                }
             }
+            $stmt->close();
         }
     } else {
-        
-        $_SESSION['error_message'] = "Compilare tutti i campi.";
-        header("location: modern_logic_page.php");
-        exit; // Termina lo script dopo il reindirizzamento
-        
+        $response['message'] = "Compilare tutti i campi.";
     }
 }
 
 $conn->close();
+echo json_encode($response);
 ?>

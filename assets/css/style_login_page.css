@@ -208,3 +208,14 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+
+.message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}

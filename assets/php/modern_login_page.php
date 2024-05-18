@@ -1,7 +1,3 @@
-<?php
-    session_start()
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style_login_page.css">
-    <title>Modern Login Page | AsmrProg</title>
+    <title>Login / Registrazione</title>
 </head>
 
 <body>
-
     <div class="container" id="container">
         <div class="form-container sign-up">
-		    <form class="registration" action="registration_process.php" method="POST">
+            <form id="registrationForm" class="registration" method="POST">
                 <h1>Crea un Account</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -31,15 +26,11 @@
                 <input type="password" name="password" placeholder="Password">
                 <input type="tel" name="telefono" placeholder="Telefono">
                 <button type="submit">Registrati</button>
-                <?php if (isset($_SESSION['error_message'])) { ?>
-                    <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
-                    <?php unset($_SESSION['error_message']); ?>
-                <?php } ?>
-                
+                <div id="registrationMessage" class="message"></div>
             </form>
         </div>
         <div class="form-container sign-in">
-            <form class="login" action="login_process.php" method="POST">
+            <form id="loginForm" class="login" method="POST">
                 <h1>Accedi</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -52,10 +43,7 @@
                 <input type="password" name="password" placeholder="Password">
                 <a href="recupero_password.php">Password dimenticata?</a>
                 <button type="submit">Accedi</button>
-                <?php if (isset($_SESSION['error_message'])) { ?>
-                    <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
-                    <?php unset($_SESSION['error_message']); ?>
-                <?php } ?>
+                <div id="loginMessage" class="message"></div>
             </form>
         </div>
         <div class="toggle-container">
@@ -75,6 +63,44 @@
     </div>
 
     <script src="../js/login.js"></script>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('registration_process.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageDiv = document.getElementById('registrationMessage');
+                messageDiv.innerText = data.message;
+                messageDiv.style.color = data.success ? 'green' : 'red';
+                messageDiv.classList.add('show');
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('login_process.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageDiv = document.getElementById('loginMessage');
+                if (data.success) {
+                    window.location.href = '../../index.php?user_id=' + data.user_id;
+                } else {
+                    messageDiv.innerText = data.message;
+                    messageDiv.style.color = 'red';
+                    messageDiv.classList.add('show');
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>

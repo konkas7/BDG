@@ -29,3 +29,6 @@ DA FARE
 #index.php
 - nav bar finale non funzionante
 
+#modern_login_page.php
+- gestire le sezioni (es. pagina#login)
+- rimuovere messaggi di errore quando si cambia sezione

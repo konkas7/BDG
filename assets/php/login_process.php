@@ -1,36 +1,45 @@
 <?php
 session_start();
 include 'db_connection.php';
+header('Content-Type: application/json');
+
+$response = ['success' => false, 'message' => ''];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    if (isset($_POST['email'], $_POST['password'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    // Verifica se i campi email e password sono vuoti
-    if (empty($email) || empty($password)) {
-        $_SESSION['error_message'] = "Inserire sia email che password.";
-        header("location: modern_logic_page.php");
-        exit; // Termina lo script dopo il reindirizzamento
-    }
+        if (empty($email) || empty($password)) {
+            $response['message'] = "Inserire sia email che password.";
+        } else {
+            $sql = "SELECT id, nome, email, password FROM dati_utente WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-    $sql = "SELECT id, nome, email FROM dati_utente WHERE email = '$email' AND password = '$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_nome'] = $row['nome'];
-        $_SESSION['user_email'] = $row['email'];
-        header("location: ../../index.php?user_id=" . $_SESSION['user_id']);
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['password'])) {
+                    $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_nome'] = $row['nome'];
+                    $_SESSION['user_email'] = $row['email'];
+                    $response['success'] = true;
+                    $response['user_id'] = $row['id'];
+                } else {
+                    $response['message'] = "Email o password errate.";
+                }
+            } else {
+                $response['message'] = "Email o password errate.";
+            }
+            $stmt->close();
+        }
     } else {
-        // Imposta il messaggio di errore nella variabile di sessione
-        $_SESSION['error_message'] = "Email o password errate.";
-        header("location: modern_logic_page.php");
+        $response['message'] = "Inserire sia email che password.";
     }
 }
 
 $conn->close();
-
-
-include 'carrello.php';
+echo json_encode($response);
 ?>
