@@ -163,9 +163,9 @@
 			                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 			                    <li class=" scroll active"><a href="#home">home</a></li>
 			                    <li class="scroll"><a href="#works">chi siamo</a></li>
-			                    <li class="scroll"><a href="#explore">esplora</a></li>
                                 <li class="scroll"><a href="#blog">Orari</a></li>
 			                    <li class="scroll"><a href="#reviews">recensioni</a></li>
+								<li class="scroll"><a href="#explore">esplora</a></li>
 			                    <li class="scroll"><a href="#contact">contatti</a></li>
 			                </ul><!--/.nav -->
 			            </div><!-- /.navbar-collapse -->
@@ -609,6 +609,145 @@
 		</section><!--/.works-->
 		<!--works end -->
 
+		
+
+        <!--orari start -->
+		
+
+		<?php include 'assets/php/orari.php' ?>
+        
+        
+        
+		<!--orari end -->
+
+		<!-- Connessione al database e recupero dei prodotti casuali -->
+		<?php
+			// Connessione al database
+			include '/assets/php/db_connection.php';
+
+			// Query per selezionare 5 prodotti casuali
+			$sql = "SELECT p.*, c.nome_categoria 
+					FROM prodotti p
+					INNER JOIN categorie c ON p.categoria_id = c.id
+					ORDER BY RAND() 
+					LIMIT 10";
+
+			$result = $conn->query($sql);
+			$prodotti = [];
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					$prodotti[] = $row;
+				}
+			}
+			$conn->close();
+		?>
+
+		<!-- Sezione Prodotti Casuali -->
+		<section id="products" class="products">
+        <div class="section-header">
+            <h2>Prodotti Casuali</h2>
+            <p>Scopri alcuni dei nostri prodotti</p>
+        </div><!--/.section-header-->
+        <div class="reviews-content">
+            <div class="testimonial-carousel owl-carousel">
+                <?php foreach ($prodotti as $prodotto): ?>
+                <div class="single-testimonial-box">
+                    <div class="testimonial-description">
+                        <div class="testimonial-info">
+                            <div class="testimonial-img">
+                                <img src="<?php echo $prodotto['url_foto']; ?>" alt="<?php echo $prodotto['nome']; ?>">
+                            </div><!--/.testimonial-img-->
+                            <div class="testimonial-person">
+                                <h2><?php echo $prodotto['nome']; ?></h2>
+                                <h4><?php echo $prodotto['nome_categoria']; ?></h4>
+                                <div class="testimonial-person-star">
+                                    <p>Prezzo: €<?php echo $prodotto['prezzo']; ?></p>
+                                </div>
+                            </div><!--/.testimonial-person-->
+                        </div><!--/.testimonial-info-->
+                        <div class="testimonial-comment">
+                            <p>
+                                Origine: <?php echo $prodotto['origine']; ?><br>
+                                Fornitore: <?php echo $prodotto['fornitore']; ?>
+                            </p>
+                        </div><!--/.testimonial-comment-->
+                    </div><!--/.testimonial-description-->
+                </div><!--/.single-testimonial-box-->
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section><!--/.products-->
+
+	<!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".testimonial-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            });
+        });
+    </script>
+		<!--reviews end -->
+
+
+        
+
+		<!-- statistics start -->
+		<section id="statistics"  class="statistics">
+			<div class="container">
+				<div class="statistics-counter"> 
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">90 </div> <span>K+</span>
+							</div><!--/.statistics-content-->
+							<h3>listings</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">40</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>listing categories</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">65</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>visitors</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">50</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>happy clients</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+				</div><!--/.statistics-counter-->	
+			</div><!--/.container-->
+
+		</section><!--/.counter-->	
+		<!-- statistics end -->
+
 		<!--explore start -->
 		<section id="explore" class="explore">
 			<div class="container">
@@ -1020,274 +1159,6 @@
 
 		</section><!--/.explore-->
 		<!--explore end -->
-
-        <!--orari start -->
-		
-
-		<?php include 'assets/php/orari.php' ?>
-        
-        
-        
-		<!--orari end -->
-
-		<!--reviews start -->
-		<section id="reviews" class="reviews">
-			<div class="section-header">
-				<h2>Recensioni clienti</h2>
-				<p>Cosa dicono i clienti riguardo al nostro servizio</p>
-			</div><!--/.section-header-->
-			<div class="reviews-content">
-				<div class="testimonial-carousel">
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c1.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c2.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>monirul islam</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c3.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Shohrab Hossain</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c4.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c1.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c2.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>monirul islam</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c3.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Shohrab Hossain</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="assets/images/clients/c4.png" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				</div>
-			</div>
-
-		</section><!--/.reviews-->
-		<!--reviews end -->
-
-
-        
-
-		<!-- statistics start -->
-		<section id="statistics"  class="statistics">
-			<div class="container">
-				<div class="statistics-counter"> 
-					<div class="col-md-3 col-sm-6">
-						<div class="single-ststistics-box">
-							<div class="statistics-content">
-								<div class="counter">90 </div> <span>K+</span>
-							</div><!--/.statistics-content-->
-							<h3>listings</h3>
-						</div><!--/.single-ststistics-box-->
-					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
-						<div class="single-ststistics-box">
-							<div class="statistics-content">
-								<div class="counter">40</div> <span>k+</span>
-							</div><!--/.statistics-content-->
-							<h3>listing categories</h3>
-						</div><!--/.single-ststistics-box-->
-					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
-						<div class="single-ststistics-box">
-							<div class="statistics-content">
-								<div class="counter">65</div> <span>k+</span>
-							</div><!--/.statistics-content-->
-							<h3>visitors</h3>
-						</div><!--/.single-ststistics-box-->
-					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
-						<div class="single-ststistics-box">
-							<div class="statistics-content">
-								<div class="counter">50</div> <span>k+</span>
-							</div><!--/.statistics-content-->
-							<h3>happy clients</h3>
-						</div><!--/.single-ststistics-box-->
-					</div><!--/.col-->
-				</div><!--/.statistics-counter-->	
-			</div><!--/.container-->
-
-		</section><!--/.counter-->	
-		<!-- statistics end -->
 
 		
 
