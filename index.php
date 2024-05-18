@@ -636,6 +636,7 @@
 			$prodotti = [];
 			if ($result->num_rows > 0) {
 				while($row = $result->fetch_assoc()) {
+					$row['url_foto'] = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 					$prodotti[] = $row;
 				}
 			}
