@@ -1,3 +1,7 @@
+<?php
+    session_start()
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +17,7 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+		    <form class="registration" action="registration_process.php" method="POST">
                 <h1>Crea un Account</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -22,14 +26,20 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>o usa la tua email per la registrazione</span>
-                <input type="text" placeholder="Nome">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button>Registrati</button>
+                <input type="text" name="nome" placeholder="Nome e cognome">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <input type="tel" name="telefono" placeholder="Telefono">
+                <button type="submit">Registrati</button>
+                <?php if (isset($_SESSION['error_message'])) { ?>
+                    <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
+                    <?php unset($_SESSION['error_message']); ?>
+                <?php } ?>
+                
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form class="login" action="login_process.php" method="POST">
                 <h1>Accedi</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -38,10 +48,14 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>o usa la tua email</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
                 <a href="recupero_password.php">Password dimenticata?</a>
-                <button>Accedi</button>
+                <button type="submit">Accedi</button>
+                <?php if (isset($_SESSION['error_message'])) { ?>
+                    <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
+                    <?php unset($_SESSION['error_message']); ?>
+                <?php } ?>
             </form>
         </div>
         <div class="toggle-container">
