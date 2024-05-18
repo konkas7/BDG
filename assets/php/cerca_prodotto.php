@@ -172,8 +172,10 @@
             $sql = "SELECT p.*, c.nome_categoria 
                     FROM prodotti p
                     INNER JOIN categorie c ON p.categoria_id = c.id
-                    WHERE (c.nome_categoria = '$categoria' OR '$categoria' = '') 
-                    AND (LOWER(p.nome) LIKE LOWER('%$nome%') OR '$nome' = '')";
+                    WHERE ('$nome' != '' AND LOWER(p.nome) LIKE LOWER('%$nome%'))
+                    OR ('$nome' = '' AND (c.nome_categoria = '$categoria' OR '$categoria' = ''))";
+
+
 
             $result = $conn->query($sql);
 
