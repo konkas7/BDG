@@ -248,6 +248,9 @@
 									<h2><a>Frutta e verdura</a></h2>
 
 									<form id="frutta_verdura_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+										<?php if(isset($_SESSION['user_id'])) { ?>
+											<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+										<?php } ?>
 										<input type="hidden" id="categoria1" name="categoria1" value="frutta">
 										<input type="hidden" id="categoria2" name="categoria2" value="verdura">
 										<input type="submit" style="display: none;">
@@ -285,6 +288,9 @@
 								</div>
 								<h2><a href="#">Carne e pesce</a></h2>
 								<form id="carne_pesce_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<?php if(isset($_SESSION['user_id'])) { ?>
+										<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+									<?php } ?>
 									<input type="hidden" name="categoria1" value="carne">
 									<input type="hidden" name="categoria2" value="pesce">
 									<input type="submit" style="display: none;">
@@ -314,6 +320,9 @@
 								</div>
 								<h2><a href="#">Salumi e formaggi</a></h2>
 								<form id="salumi_formaggi_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<?php if(isset($_SESSION['user_id'])) { ?>
+										<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+									<?php } ?>
 									<input type="hidden" name="categoria1" value="salumi">
 									<input type="hidden" name="categoria2" value="formaggi">
 									<input type="submit" style="display: none;">
@@ -343,6 +352,9 @@
 								</div>
 								<h2><a href="#">Prodotti da forno</a></h2>
 								<form id="forno_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<?php if(isset($_SESSION['user_id'])) { ?>
+										<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+									<?php } ?>
 									<input type="hidden" name="categoria1" value="Pane_e_Prodotti_da_Forno">
 									<input type="hidden" name="categoria2" value="Prodotti_da_Forno">
 									<input type="submit" style="display: none;">
@@ -372,6 +384,9 @@
 								</div>
 								<h2><a href="#">Prodotti casa</a></h2>
 								<form id="casa_form" action="/bdg/assets/php/doppia_categoria.php" method="post">
+									<?php if(isset($_SESSION['user_id'])) { ?>
+										<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+									<?php } ?>
 									<input type="hidden" name="categoria1" value="Detersivi_per_la_Casa">
 									<input type="hidden" name="categoria2" value="Prodotti_per_la_Pulizia_Personale">
 									<input type="hidden" name="categoria3" value="Accessori_per_la_Cucina">

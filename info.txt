@@ -24,4 +24,6 @@ DA FARE
 
 #index.php
 - metodo post anche per doppia categoria
+- ricerca da nome
+- nav bar finale non funzionante
 
