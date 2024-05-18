@@ -164,7 +164,7 @@
 			                    <li class=" scroll active"><a href="#home">home</a></li>
 			                    <li class="scroll"><a href="#works">chi siamo</a></li>
                                 <li class="scroll"><a href="#blog">Orari</a></li>
-			                    <li class="scroll"><a href="#reviews">recensioni</a></li>
+			                    <li class="scroll"><a href="#products">prodotti</a></li>
 								<li class="scroll"><a href="#explore">esplora</a></li>
 			                    <li class="scroll"><a href="#contact">contatti</a></li>
 			                </ul><!--/.nav -->
@@ -1177,15 +1177,48 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="subscription-input-group">
-							<form action="#">
-								<input type="email" class="subscription-input-form" placeholder="Inserisci qui l'email">
-								<button class="appsLand-btn subscribe-btn" onclick="window.location.href='#'">
+							<form id="subscriptionForm">
+								<input type="email" name="email" id="email" class="subscription-input-form" placeholder="Inserisci qui l'email" required>
+								<button type="submit" class="appsLand-btn subscribe-btn">
 									crea l'account
 								</button>
 							</form>
 						</div>
-					</div>	
+					</div>  
 				</div>
+				<!-- Div per il popup -->
+				<div id="popup" class="popup" style="display: none;">
+					<span id="popupMessage"></span>
+					<button onclick="closePopup()">OK</button>
+				</div>
+
+				<script>
+					document.getElementById('subscriptionForm').addEventListener('submit', function(event) {
+						event.preventDefault(); // Previene il comportamento predefinito del form
+
+						var email = document.getElementById('email').value;
+
+						var xhr = new XMLHttpRequest();
+						xhr.open('POST', 'Assets/php/iscrizione.php', true);
+						xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+						
+						xhr.onreadystatechange = function() {
+							if (xhr.readyState == 4 && xhr.status == 200) {
+								var response = JSON.parse(xhr.responseText);
+								document.getElementById('popupMessage').textContent = response.message;
+								document.getElementById('popup').style.display = 'block';
+							}
+						};
+
+						xhr.send('email=' + encodeURIComponent(email));
+					});
+
+					function closePopup() {
+						document.getElementById('popup').style.display = 'none';
+					}
+				</script>
+
+
 			</div>
 
 		</section><!--/subscription-->	
