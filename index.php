@@ -660,8 +660,8 @@
                             </div><!--/.testimonial-img-->
                             <div class="testimonial-person">
                                 <h2><?php echo $prodotto['nome']; ?></h2>
-                                <h4><?php echo $prodotto['nome_categoria']; ?></h4>
-                                <div class="testimonial-person-star">
+								<h4><?php echo str_replace('_', ' ', $prodotto['nome_categoria']); ?></h4>
+								<div class="testimonial-person-star">
                                     <p>Prezzo: €<?php echo $prodotto['prezzo']; ?></p>
                                 </div>
                             </div><!--/.testimonial-person-->

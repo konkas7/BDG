@@ -6,17 +6,19 @@ COMPLETATE
 
 #carrello
 - front-end
+- hover freccia fatto (anche prima ma non funzionava)
 #doppia_categoria
 - copiare esattamente tutto quello che ho fatto nella ricerca
 - aggiunto session_start()
 #index.php
 - metodo post anche per doppia categoria
+- ricerca da nome
+
 
 
 DA FARE
 
 #carrello
-    - non funziona l'hover del cursore sulla freccia indietro
     - non funziona il sort del carrello
     - non funziona il delete del carrello
     - pagamento completo
@@ -25,6 +27,5 @@ DA FARE
 
 
 #index.php
-- ricerca da nome
 - nav bar finale non funzionante
 
