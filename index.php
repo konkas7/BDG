@@ -614,14 +614,14 @@
 			<div class="container">
 				<div class="section-header">
 					<h2>esplora</h2>
-					<p>Esplora i prodotti più venduti per ogni categoria</p>
+					<p>Esplora altre località della zona</p>
 				</div><!--/.section-header-->
 				<div class="explore-content">
 					<div class="row">
 						<div class=" col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e1.jpg" alt="explore image">
+									<img src="assets/images/luoghi/belvedere.jpg" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">best rated</button>
 										<div class="single-explore-image-icon-box">
@@ -641,15 +641,15 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-1">
-									<h2><a href="#">tommy helfinger bar</a></h2>
+									<h2><a href="#">Belvedere</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">5.0</span>
 										<a href="#"> 10 ratings</a> 
 										<span class="explore-price-box">
 											form
-											<span class="explore-price">5$-300$</span>
+											<span class="explore-price">5$-30$</span>
 										</span>
-										 <a href="#">resturent</a>
+										 <a href="#">Bar/Ristorante</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
@@ -687,7 +687,7 @@
 						<div class="col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e2.jpg" alt="explore image">
+									<img src="assets/images/luoghi/vincenzo.png" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">featured</button>
 										<div class="single-explore-image-icon-box">
@@ -707,7 +707,7 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-2">
-									<h2><a href="#">swim and dine resort</a></h2>
+									<h2><a href="#">Vincenzo</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">4.5</span>
 										<a href="#"> 8 ratings</a> 
@@ -715,7 +715,7 @@
 											form
 											<span class="explore-price">50$-500$</span>
 										</span>
-										 <a href="#">hotel</a>
+										 <a href="#">Macelleria</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
@@ -753,7 +753,7 @@
 						<div class="col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e3.jpg" alt="explore image">
+									<img src="assets/images/luoghi/pancaffe.jpg" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">best rated</button>
 										<div class="single-explore-image-icon-box">
@@ -773,7 +773,7 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-3">
-									<h2><a href="#">europe tour</a></h2>
+									<h2><a href="#">Pan Caffè</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">5.0</span>
 										<a href="#"> 15 ratings</a> 
@@ -781,7 +781,7 @@
 											form
 											<span class="explore-price">5k$-10k$</span>
 										</span>
-										 <a href="#">destination</a>
+										 <a href="#">Bar</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
@@ -819,7 +819,7 @@
 						<div class=" col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e4.jpg" alt="explore image">
+									<img src="assets/images/luoghi/trota.jpg" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">most view</button>
 										<div class="single-explore-image-icon-box">
@@ -839,7 +839,7 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-4">
-									<h2><a href="#">banglow with swiming pool</a></h2>
+									<h2><a href="#">Trota</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">5.0</span>
 										<a href="#"> 10 ratings</a> 
@@ -847,7 +847,7 @@
 											form
 											<span class="explore-price">10k$-15k$</span>
 										</span>
-										 <a href="#">real estate</a>
+										 <a href="#">Ristorante</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
@@ -885,7 +885,7 @@
 						<div class="col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e5.jpg" alt="explore image">
+									<img src="assets/images/luoghi/forno.jpg" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">featured</button>
 										<div class="single-explore-image-icon-box">
@@ -905,7 +905,7 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-2">
-									<h2><a href="#">vintage car expo</a></h2>
+									<h2><a href="#">Forno</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">4.2</span>
 										<a href="#"> 8 ratings</a> 
@@ -913,7 +913,7 @@
 											form
 											<span class="explore-price">500$-1200$</span>
 										</span>
-										 <a href="#">automotion</a>
+										 <a href="#">Ristorante</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
@@ -951,7 +951,7 @@
 						<div class="col-md-4 col-sm-6">
 							<div class="single-explore-item">
 								<div class="single-explore-img">
-									<img src="assets/images/explore/e6.jpg" alt="explore image">
+									<img src="assets/images/luoghi/liberty.jpg" alt="explore image">
 									<div class="single-explore-img-info">
 										<button onclick="window.location.href='#'">best rated</button>
 										<div class="single-explore-image-icon-box">
@@ -971,7 +971,7 @@
 									</div>
 								</div>
 								<div class="single-explore-txt bg-theme-5">
-									<h2><a href="#">thailand tour</a></h2>
+									<h2><a href="#">Liberty</a></h2>
 									<p class="explore-rating-price">
 										<span class="explore-rating">5.0</span>
 										<a href="#"> 15 ratings</a> 
@@ -979,7 +979,7 @@
 											form
 											<span class="explore-price">5k$-10k$</span>
 										</span>
-										 <a href="#">destination</a>
+										 <a href="#">Bar</a>
 									</p>
 									<div class="explore-person">
 										<div class="row">
