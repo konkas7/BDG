@@ -38,7 +38,8 @@ DA FARE
 
 
 
-
+#login
+- rimuovere caselle piene
 
 
 

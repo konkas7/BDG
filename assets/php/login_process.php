@@ -15,25 +15,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $sql = "SELECT id, nome, email, password FROM dati_utente WHERE email = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
+            if ($stmt) {
+                $stmt->bind_param('s', $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                if (password_verify($password, $row['password'])) {
-                    $_SESSION['user_id'] = $row['id'];
-                    $_SESSION['user_nome'] = $row['nome'];
-                    $_SESSION['user_email'] = $row['email'];
-                    $response['success'] = true;
-                    $response['user_id'] = $row['id'];
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    if (password_verify($password, $row['password'])) {
+                        $_SESSION['user_id'] = $row['id'];
+                        $_SESSION['user_nome'] = $row['nome'];
+                        $_SESSION['user_email'] = $row['email'];
+                        $response['success'] = true;
+                        $response['user_id'] = $row['id'];
+                    } else {
+                        $response['message'] = "Email o password errate.";
+                    }
                 } else {
                     $response['message'] = "Email o password errate.";
                 }
+                $stmt->close();
             } else {
-                $response['message'] = "Email o password errate.";
+                $response['message'] = "Errore nella preparazione della query.";
             }
-            $stmt->close();
         }
     } else {
         $response['message'] = "Inserire sia email che password.";

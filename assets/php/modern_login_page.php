@@ -24,7 +24,7 @@
                 <input type="text" name="nome" placeholder="Nome e cognome">
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Password">
-                <input type="tel" name="telefono" placeholder="Telefono">
+                <input type="tel" name="telefono" placeholder="Telefono" pattern="[0-9]*" inputmode="numeric">
                 <button type="submit">Registrati</button>
                 <div id="registrationMessage" class="message"></div>
             </form>
@@ -92,6 +92,16 @@
             }
         });
 
+        const telefonoInput = document.querySelector('input[name="telefono"]');
+
+        telefonoInput.addEventListener('input', function(event) {
+            const value = telefonoInput.value;
+            if (/[^0-9]/.test(value)) {
+                telefonoInput.value = value.replace(/[^0-9]/g, '');
+            }
+        });
+
+
         // Form submit handlers
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -115,6 +125,7 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const formData = new FormData(this);
+
             fetch('login_process.php', {
                 method: 'POST',
                 body: formData
@@ -129,8 +140,16 @@
                     messageDiv.style.color = 'red';
                     messageDiv.classList.add('show');
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const messageDiv = document.getElementById('loginMessage');
+                messageDiv.innerText = 'Si è verificato un errore durante il login. Riprova più tardi.';
+                messageDiv.style.color = 'red';
+                messageDiv.classList.add('show');
             });
         });
+
     </script>
 </body>
 
