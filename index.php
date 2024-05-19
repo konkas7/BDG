@@ -1207,6 +1207,7 @@
 								var response = JSON.parse(xhr.responseText);
 								document.getElementById('popupMessage').textContent = response.message;
 								document.getElementById('popup').style.display = 'block';
+								document.getElementById('email').value = ''; //casella vuota
 							}
 						};
 
