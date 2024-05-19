@@ -119,10 +119,10 @@
 								+39 0345 90079
 							</li>
 							<li class="header-top-contact">
-								<a href="/bdg/assets/html/login.html">Accedi</a>
+								<a href="/bdg/assets/php/modern_login_page.php#signin">Accedi</a>
 							</li>
 							<li class="header-top-contact">
-								<a href="/bdg/assets/html/register.html">Registrati</a>
+								<a href="/bdg/assets/php/modern_login_page.php#signup">Registrati</a>
 							</li>
 						<?php } ?>
 					</ul>

@@ -11,7 +11,7 @@
 
 <body>
     <div class="container" id="container">
-        <div class="form-container sign-up">
+        <div class="form-container sign-up" id="signup">
             <form id="registrationForm" class="registration" method="POST">
                 <h1>Crea un Account</h1>
                 <div class="social-icons">
@@ -29,7 +29,7 @@
                 <div id="registrationMessage" class="message"></div>
             </form>
         </div>
-        <div class="form-container sign-in">
+        <div class="form-container sign-in" id="signin">
             <form id="loginForm" class="login" method="POST">
                 <h1>Accedi</h1>
                 <div class="social-icons">
@@ -62,8 +62,37 @@
         </div>
     </div>
 
-    <script src="../js/login.js"></script>
     <script>
+        const container = document.getElementById('container');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+
+        // Funzione per mostrare la sezione di registrazione
+        function showSignup() {
+            container.classList.add("active");
+            window.location.hash = 'signup';
+        }
+
+        // Funzione per mostrare la sezione di login
+        function showSignin() {
+            container.classList.remove("active");
+            window.location.hash = 'signin';
+        }
+
+        // Event listeners per i pulsanti di toggle
+        registerBtn.addEventListener('click', showSignup);
+        loginBtn.addEventListener('click', showSignin);
+
+        // Verifica l'ancora nell'URL quando la pagina viene caricata
+        window.addEventListener('load', function() {
+            if (window.location.hash === '#signup') {
+                showSignup();
+            } else {
+                showSignin();
+            }
+        });
+
+        // Form submit handlers
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const formData = new FormData(this);
@@ -77,6 +106,9 @@
                 messageDiv.innerText = data.message;
                 messageDiv.style.color = data.success ? 'green' : 'red';
                 messageDiv.classList.add('show');
+                if (data.success) {
+                    this.reset();
+                }
             });
         });
 
@@ -99,7 +131,6 @@
                 }
             });
         });
-
     </script>
 </body>
 

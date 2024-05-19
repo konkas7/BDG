@@ -13,6 +13,8 @@ COMPLETATE
 #index.php
 - metodo post anche per doppia categoria
 - ricerca da nome
+- svuotamento casella email newsletter
+
 
 
 
@@ -28,9 +30,24 @@ DA FARE
 
 #index.php
 - nav bar finale non funzionante
-- svuotamento casella email newsletter
 
 #modern_login_page.php
 - gestire le sezioni (es. pagina#login)
 - rimuovere messaggi di errore quando si cambia sezione
 
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
+PAGINA OWNER
+
+- visualizzazione ordini
+- newsletter
