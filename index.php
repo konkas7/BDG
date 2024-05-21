@@ -1,5 +1,18 @@
 <?php include 'assets/php/numero_elementi.php'; ?>
-<?php session_start() ?>
+<?php session_start() ;
+	//$_SESSION['test'] = 'test_value';
+	//echo $_SESSION['test'];
+
+	include 'assets/php/conteggio_prodotti.php';
+
+
+	// Verifica se la variabile di sessione esiste
+	if (isset($_SESSION['totalProducts'])) {
+		$totalProducts = $_SESSION['totalProducts'];
+	} else {
+		$totalProducts = 2; // Valore predefinito se la sessione non è impostata
+	}
+?>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -712,43 +725,45 @@
 		<section id="statistics"  class="statistics">
 			<div class="container">
 				<div class="statistics-counter"> 
-					<div class="col-md-3 col-sm-6">
+					<div class="col-md-4 col-sm-4">
 						<div class="single-ststistics-box">
 							<div class="statistics-content">
-								<div class="counter">90 </div> <span>K+</span>
+								<div class="counter"><span id="yearDifference"></span></div><span>anni</span>
 							</div><!--/.statistics-content-->
-							<h3>listings</h3>
+							<h3>di storia</h3>
 						</div><!--/.single-ststistics-box-->
 					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
+					<div class="col-md-4 col-sm-4">
 						<div class="single-ststistics-box">
 							<div class="statistics-content">
-								<div class="counter">40</div> <span>k+</span>
+								<div class="counter"><?php echo $totalProducts; ?></div> <span> prodotti</span>
 							</div><!--/.statistics-content-->
-							<h3>listing categories</h3>
+							<h3>nel catalogo</h3>
 						</div><!--/.single-ststistics-box-->
 					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
+					<div class="col-md-4 col-sm-4">
 						<div class="single-ststistics-box">
 							<div class="statistics-content">
-								<div class="counter">65</div> <span>k+</span>
+								<div class="counter" style="font-size: 1em;">&#8734;</div> <span> </span>
 							</div><!--/.statistics-content-->
-							<h3>visitors</h3>
+							<h3>clienti soddisfatti</h3>
 						</div><!--/.single-ststistics-box-->
 					</div><!--/.col-->
-					<div class="col-md-3 col-sm-6">
-						<div class="single-ststistics-box">
-							<div class="statistics-content">
-								<div class="counter">50</div> <span>k+</span>
-							</div><!--/.statistics-content-->
-							<h3>happy clients</h3>
-						</div><!--/.single-ststistics-box-->
-					</div><!--/.col-->
+					
 				</div><!--/.statistics-counter-->	
 			</div><!--/.container-->
 
 		</section><!--/.counter-->	
 		<!-- statistics end -->
+
+		<script>
+			const currentYear = new Date().getFullYear();
+			const year1960 = 1960;
+			const difference = currentYear - year1960;
+
+			document.getElementById('yearDifference').textContent = difference;
+
+		</script>
 
 		<!--explore start -->
 		<section id="explore" class="explore">
