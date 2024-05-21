@@ -1241,6 +1241,8 @@
 		</section><!--/subscription-->	
 		<!--subscription end -->
 
+		
+
 		<!--footer start-->
 		<footer id="footer"  class="footer">
 			<div class="container">

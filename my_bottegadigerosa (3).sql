@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 12, 2024 at 02:23 PM
+-- Generation Time: May 21, 2024 at 06:47 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.18
 
@@ -37,13 +37,8 @@ CREATE TABLE `carrello` (
 --
 
 INSERT INTO `carrello` (`prodotto_id`, `carrello_id`, `utente_id`) VALUES
-(0, 1, 1),
-(0, 2, 3),
-(0, 3, 4),
-(0, 4, 1),
-(1, 5, 1),
-(2, 6, 1),
-(2, 7, 1);
+(1, 24, 23),
+(2, 25, 23);
 
 -- --------------------------------------------------------
 
@@ -95,7 +90,6 @@ INSERT INTO `categorie` (`id`, `nome_categoria`, `url_foto`) VALUES
 CREATE TABLE `dati_utente` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
-  `cognome` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(200) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL
@@ -105,17 +99,10 @@ CREATE TABLE `dati_utente` (
 -- Dumping data for table `dati_utente`
 --
 
-INSERT INTO `dati_utente` (`id`, `nome`, `cognome`, `email`, `password`, `telefono`) VALUES
-(1, 'Thomas', 'Vita', 'thomasvitacell@gmail.com', 'Poiupoiu7', '3460705905'),
-(3, 'pippo', 'baudo', 'ciccio@cicco.com', 'cicciociccio', '1234567891'),
-(4, 'Laura', 'Pesenti BolÃ²', 'lalli03@tiscali.it', 'Caccamolle', '3467214151'),
-(7, 'dasfadf', 'asdfasdf', 'asdfaas@asdfa', 'asdfasdfa', '3333333333'),
-(8, 'Simon', 'Vita', 'simonevita@gmail.com', 'ciaociao', '3402670980'),
-(13, 'Aurora', 'Vita', 'collana524@gmail.com', 'Maiotti6789', '1847295678'),
-(14, 'Paolo', 'Rossi', 'paolo@email.com', 'password123', '3216549870'),
-(15, 'Giovanna', 'Bianchi', 'giovanna@email.com', 'securepwd', '1234567890'),
-(16, 'Luigi', 'Verdi', 'luigi@email.com', 'topsecret', '9876543210'),
-(17, 'pippo', 'baudo', 'pippopippo@gmail.com', 'Poiupoiu7', '1111111112');
+INSERT INTO `dati_utente` (`id`, `nome`, `email`, `password`, `telefono`) VALUES
+(23, 'Thomas Vita', 'thomasvitacell@gmail.com', '$2y$10$45DV/Y5sUna0rUvO5eVbKuL7P82KEndV5VhLnI0FkmWDSirLUpCTi', '3460705905'),
+(24, 'd', 'd@d', '$2y$10$JYO3Zqpo4b8EolaD64yqlubqtLBNxsBlTOwtqv4Dg.0x0A75b7aH2', 'd'),
+(25, 'pippo baudo', 'pippoforo@tiscali.it', '$2y$10$bpR8eWj95bd7mWTf.l9OheJ4o1DN8FIGQammlmgbTOP0zAam3fGj2', '2828282828');
 
 -- --------------------------------------------------------
 
@@ -145,6 +132,27 @@ INSERT INTO `dipendenti` (`id`, `nome`, `cognome`, `data_di_nascita`, `ruolo`, `
 (4, 'Anna', 'Verdi', '1975-08-10', 'Cassiera', 'assets/images/Dipendenti/Anna.jpg', 'La passione per il cibo e per il cliente', 'Specialista in gastronomia e mixology, porta un tocco personale ai prodotti del nostro negozio.'),
 (5, 'Mario', 'Bianchi', '1988-03-25', 'Addetto alle vendite', 'assets/images/Dipendenti/Mario.jpg', 'Dedicato e affidabile', 'Esperto nella selezione di prodotti per l’home decor e l’arredamento.'),
 (6, 'Sara', 'Rossi', '1990-11-15', 'Responsabile Magazzino', 'assets/images/Dipendenti/Sara.jpg', 'L’organizzazione è la sua forza', 'Si occupa della logistica e del magazzino, garantendo la qualità dei prodotti e la soddisfazione dei clienti.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news_letter`
+--
+
+CREATE TABLE `news_letter` (
+  `id` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `news_letter`
+--
+
+INSERT INTO `news_letter` (`id`, `email`) VALUES
+(1, 'thomasvitacell@gmail.com'),
+(2, 'lalli03@tiscali.it'),
+(3, 'nocela3487@aramask.com'),
+(4, 'collana524@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -182,25 +190,6 @@ CREATE TABLE `ordine` (
   `carrello_id` int(11) NOT NULL,
   `prodotto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ordine`
---
-
-INSERT INTO `ordine` (`id`, `carrello_id`, `prodotto_id`) VALUES
-(1, 2, 3),
-(2, 3, 8),
-(3, 4, 12),
-(4, 4, 17),
-(5, 2, 5),
-(6, 3, 1),
-(7, 2, 1),
-(8, 2, 1),
-(9, 3, 1),
-(10, 3, 1),
-(11, 3, 1),
-(12, 4, 1),
-(13, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -295,6 +284,12 @@ ALTER TABLE `dipendenti`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `news_letter`
+--
+ALTER TABLE `news_letter`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orari`
 --
 ALTER TABLE `orari`
@@ -329,7 +324,7 @@ ALTER TABLE `recensioni`
 -- AUTO_INCREMENT for table `carrello`
 --
 ALTER TABLE `carrello`
-  MODIFY `carrello_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `carrello_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `categorie`
 --
@@ -339,17 +334,22 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT for table `dati_utente`
 --
 ALTER TABLE `dati_utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `dipendenti`
 --
 ALTER TABLE `dipendenti`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `news_letter`
+--
+ALTER TABLE `news_letter`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `prodotti`
 --
