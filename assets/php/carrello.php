@@ -149,13 +149,13 @@
                             $userId = "999"; // o qualsiasi valore di default per gli utenti non autenticati
                         }
 
-                        $sql = "SELECT p.nome, p.prezzo, p.url_foto, p.origine, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                        $sql = "SELECT p.nome, p.prezzo, p.origine, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                                 FROM carrello car
                                 INNER JOIN prodotti p ON car.prodotto_id = p.id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
                                 INNER JOIN categorie cat ON p.categoria_id = cat.id
                                 WHERE u.id = '$userId'
-                                GROUP BY p.id, p.nome, p.prezzo, p.url_foto, cat.nome_categoria";
+                                GROUP BY p.id, p.nome, p.prezzo, cat.nome_categoria";
 
                         // Esegui la query SQL
                         $result = $conn->query($sql);

@@ -625,7 +625,7 @@
 			// Connessione al database
 			include '/assets/php/db_connection.php';
 
-			// Query per selezionare 5 prodotti casuali
+			// Query per selezionare x prodotti casuali
 			$sql = "SELECT p.*, c.nome_categoria 
 					FROM prodotti p
 					INNER JOIN categorie c ON p.categoria_id = c.id
@@ -645,39 +645,40 @@
 
 		<!-- Sezione Prodotti Casuali -->
 		<section id="products" class="products">
-        <div class="section-header">
-            <h2>Prodotti Casuali</h2>
-            <p>Scopri alcuni dei nostri prodotti</p>
-        </div><!--/.section-header-->
-        <div class="reviews-content">
-            <div class="testimonial-carousel owl-carousel">
-                <?php foreach ($prodotti as $prodotto): ?>
-                <div class="single-testimonial-box">
-                    <div class="testimonial-description">
-                        <div class="testimonial-info">
-                            <div class="testimonial-img">
-                                <img src="<?php echo $prodotto['url_foto']; ?>" alt="<?php echo $prodotto['nome']; ?>">
-                            </div><!--/.testimonial-img-->
-                            <div class="testimonial-person">
-                                <h2><?php echo $prodotto['nome']; ?></h2>
-								<h4><?php echo str_replace('_', ' ', $prodotto['nome_categoria']); ?></h4>
-								<div class="testimonial-person-star">
-                                    <p>Prezzo: €<?php echo $prodotto['prezzo']; ?></p>
-                                </div>
-                            </div><!--/.testimonial-person-->
-                        </div><!--/.testimonial-info-->
-                        <div class="testimonial-comment">
-                            <p>
-                                Origine: <?php echo $prodotto['origine']; ?><br>
-                                Fornitore: <?php echo $prodotto['fornitore']; ?>
-                            </p>
-                        </div><!--/.testimonial-comment-->
-                    </div><!--/.testimonial-description-->
-                </div><!--/.single-testimonial-box-->
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section><!--/.products-->
+			<div class="section-header">
+				<h2>Prodotti Casuali</h2>
+				<p>Scopri alcuni dei nostri prodotti</p>
+			</div><!--/.section-header-->
+			<div class="reviews-content">
+				<div class="testimonial-carousel owl-carousel">
+					<?php foreach ($prodotti as $prodotto): ?>
+					<div class="single-testimonial-box product-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img product-img">
+									<img src="<?php echo $prodotto['url_foto']; ?>" alt="<?php echo $prodotto['nome']; ?>">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2><?php echo $prodotto['nome']; ?></h2>
+									<h4><?php echo str_replace('_', ' ', $prodotto['nome_categoria']); ?></h4>
+									<div class="testimonial-person-star">
+										<p>Prezzo: €<?php echo $prodotto['prezzo']; ?></p>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Origine: <?php echo $prodotto['origine']; ?><br>
+									Fornitore: <?php echo $prodotto['fornitore']; ?>
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</section><!--/.products-->
+
 
 	<!-- Owl Carousel JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

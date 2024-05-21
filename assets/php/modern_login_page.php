@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style_login_page.css">
     <title>Login / Registrazione</title>
+    <style>
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
+    <a href="../../index.php" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
     <div class="container" id="container">
         <div class="form-container sign-up" id="signup">
             <form id="registrationForm" class="registration" method="POST">
@@ -101,7 +112,6 @@
             }
         });
 
-
         // Form submit handlers
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -149,7 +159,6 @@
                 messageDiv.classList.add('show');
             });
         });
-
     </script>
 </body>
 

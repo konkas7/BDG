@@ -1196,4 +1196,37 @@ select {
 
 }
 
+/* CSS file: style_login_page.css */
+/* CSS file: style_login_page.css */
+
+.product-box {
+    width: 300px; /* Larghezza fissa delle caselle dei prodotti */
+    height: 350px; /* Altezza fissa delle caselle dei prodotti */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px; /* Margine tra le caselle */
+    padding: 15px; /* Padding interno */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra per dare un po' di profondità */
+    border-radius: 10px; /* Arrotonda gli spigoli delle caselle */
+    background-color: #fff; /* Colore di sfondo bianco */
+}
+
+.product-img {
+    height: 200px; /* Altezza fissa dell'immagine */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* Arrotonda gli spigoli del contenitore dell'immagine */
+    overflow: hidden; /* Nasconde l'eccesso dell'immagine che esce dai bordi arrotondati */
+}
+
+.product-img img {
+    max-width: 100%; /* Immagine riempie la larghezza disponibile */
+    max-height: 100%; /* Immagine riempie l'altezza disponibile */
+    object-fit: contain; /* L'immagine si ridimensiona mantenendo le proporzioni */
+}
+
+
+
 /*========================Thank you=================
