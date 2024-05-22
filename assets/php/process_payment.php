@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_connection.php';
+include 'db_connection.php'; // Aggiorna il percorso se necessario
 
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
@@ -38,15 +38,31 @@ if ($resultUser && $resultUser->num_rows > 0) {
     $userName = $rowUser['nome'];
 }
 
-// Scrivi i dati in un file temporaneo
-file_put_contents('order_details.txt', $userName . "\n\n" . $orderDetails);
+// Scrivi i dati in un file temporaneo nella directory Python
+$orderDetailsPath = dirname(__FILE__) . '/../py/order_details.txt';
+file_put_contents($orderDetailsPath, $userName . "\n\n" . $orderDetails, LOCK_EX);
 
-// Esegui lo script Python
-exec("python3 send_email.py", $output, $resultCode);
+// Cambia la directory corrente
+chdir(dirname(__FILE__) . '/../py');
+
+// Esegui lo script Python con percorso assoluto
+exec("python3 email_sender.py 2>&1", $output, $resultCode);
+
+// Aggiungi debug per l'output e il codice di ritorno
+echo "Output script Python: " . implode("\n", $output) . "<br>";
+echo "Codice di ritorno: " . $resultCode . "<br>";
 
 // Controlla se lo script Python ha avuto successo
 if ($resultCode === 0) {
     echo "Email inviata con successo!";
+    
+    // Elimina i prodotti dal carrello dopo che l'email è stata inviata
+    $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
+    if ($conn->query($deleteSql) === TRUE) {
+        echo "Prodotti rimossi dal carrello con successo.";
+    } else {
+        echo "Errore nella rimozione dei prodotti dal carrello: " . $conn->error;
+    }
 } else {
     echo "Errore nell'invio dell'email.";
 }
