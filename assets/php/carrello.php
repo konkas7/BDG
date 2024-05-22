@@ -256,26 +256,14 @@
                         <span>Totale (Incl. spedizione)</span>
                         <span>€<?php echo number_format($totalWithTax, 2); ?></span>
                     </div>
-                    <form id="payment-form" method="post" action="">
-                        <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
+                    <form id="payment-form" method="post" action="process_payment.php">
+                        <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
                             <span>€<?php echo number_format($totalWithTax, 2); ?></span>
                             <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
                         </button>
                     </form>
-                    <script>
-                        document.getElementById("payment-form").addEventListener("submit", function(event) {
-                            event.preventDefault();
-                            // Invia una richiesta AJAX al server per eseguire lo script Python
-                            fetch('path_to_php_script_that_executes_python.php', {
-                                method: 'POST',
-                                body: new URLSearchParams(new FormData(this)) // Invio dei dati del form
-                            })
-                            .then(response => response.text())
-                            .then(data => {
-                                console.log(data); // Mostra la risposta del server
-                            });
-                        });
-                    </script>
+
+                    
                 </div>
             </div>
         </div>

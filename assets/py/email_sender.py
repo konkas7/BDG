@@ -1,21 +1,14 @@
 import smtplib
-import json
-import sys
+import os
 
-# Leggi il percorso del file temporaneo passato come argomento
-data_file = sys.argv[1]
-
-# Leggi i dati dal file
-with open(data_file, 'r') as file:
-    data = json.load(file)
-
-userName = data['userName']
-products = data['products']
+# Leggi i dettagli dell'ordine dal file
+with open('order_details.txt', 'r') as file:
+    lines = file.readlines()
+    subject = lines[0].strip()
+    message = ''.join(lines[2:])
 
 email = "bottegadigerosa@gmail.com"
 receiver_email = "bottegadigerosa@gmail.com"
-subject = userName
-message = "\n".join([f"{p['nome']} - {p['quantita']} pcs - €{p['prezzo_totale']}" for p in products])
 
 text = f"Subject: {subject}\n\n{message}"
 
