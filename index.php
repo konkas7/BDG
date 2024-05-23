@@ -2,6 +2,18 @@
 <?php session_start() ;
 	//$_SESSION['test'] = 'test_value';
 	//echo $_SESSION['test'];
+	// Imposta la durata della sessione in secondi (es. 1800 secondi = 30 minuti)
+	$session_timeout = 1800;
+
+	// Controlla se la variabile di timeout esiste
+	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $session_timeout)) {
+		// L'ultima attività è stata troppo tempo fa, quindi distruggi la sessione
+		session_unset();
+		session_destroy();
+	}
+
+// Aggiorna l'ultima attività
+$_SESSION['LAST_ACTIVITY'] = time();
 
 	include 'assets/php/conteggio_prodotti.php';
 
@@ -221,7 +233,7 @@
 
 							<div class="single-welcome-hero-form">
 								<h3>Nome</h3>
-								<input type="text" name="nome" placeholder="Ex: Patata dolce, Gorgonzola, ..." />
+								<input type="text" name="nome" placeholder="Ex: Patata dolce, Gorgonzola, ..." style="position: relative; top: 1.9px; "/>
 								<div class="welcome-hero-form-icon">
 									<i class="flaticon-gps-fixed-indicator"></i>
 								</div>
@@ -589,7 +601,7 @@
 								<p>
 									La migliore amica del cliente
 								</p>
-								<p id="extraTextttt" style="display: none;">La grande e mitica Arma di Taggia</p>
+								<p id="extraTextttt" style="display: none;">Il braccio destro del negozio da oltre 18 anni, oramai di famiglia</p>
 								<button class="welcome-hero-btn how-work-btn toggle-buttonnnn">
 									Leggi Altro
 								</button>
