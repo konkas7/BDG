@@ -94,11 +94,10 @@
         .spec {
             font-size: 11px;
         }
-
-       
     </style>
     <script>
     function handlePaymentResponse(response) {
+        const paymentButton = document.getElementById('payment-button');
         if (response.success) {
             if (confirm(response.message + "\nVuoi tornare alla pagina principale?")) {
                 window.location.href = "../../index.php"; // Cambia questo al percorso della tua pagina principale
@@ -109,11 +108,15 @@
             }
         } else {
             alert(response.error || "Errore sconosciuto");
+            paymentButton.disabled = false;
         }
     }
 
     function submitPaymentForm(event) {
         event.preventDefault();
+        const paymentButton = document.getElementById('payment-button');
+        paymentButton.disabled = true;
+
         const formData = new FormData(document.getElementById('payment-form'));
         fetch('process_payment.php', {
             method: 'POST',
@@ -121,7 +124,10 @@
         })
         .then(response => response.json())
         .then(data => handlePaymentResponse(data))
-        .catch(error => console.error('Errore:', error));
+        .catch(error => {
+            console.error('Errore:', error);
+            paymentButton.disabled = false;
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -211,74 +217,74 @@
             </div>
             <div class="col-md-4">
                 <?php if ($totalItems > 0): ?>
-
-                    <div class="payment-info">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Informazioni carta</span>
-                            <img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30">
+                <div class="payment-info">
+                    <div class="d-flex justify-content-between align-items-center">
+                    <span>Informazioni carta</span>
+                        <img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30">
+                    </div>
+                    <span class="type d-block mt-3 mb-1">Tipologia Carta</span>
+                    <label class="radio">
+                        <input type="radio" name="card" value="payment" checked>
+                        <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="card" value="payment">
+                        <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="card" value="payment">
+                        <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="card" value="payment">
+                        <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span>
+                    </label>
+                    <div>
+                        <label class="credit-card-label">Nome sulla carta</label>
+                        <input type="text" class="form-control credit-inputs" placeholder="Nome">
+                    </div>
+                    <div>
+                        <label class="credit-card-label">Numero di carta</label>
+                        <input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="credit-card-label">Data di scadenza</label>
+                            <input type="text" class="form-control credit-inputs" placeholder="12/24">
                         </div>
-                        <span class="type d-block mt-3 mb-1">Tipologia Carta</span>
-                        <label class="radio">
-                            <input type="radio" name="card" value="payment" checked>
-                            <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="card" value="payment">
-                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="card" value="payment">
-                            <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="card" value="payment">
-                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span>
-                        </label>
-                        <div>
-                            <label class="credit-card-label">Nome sulla carta</label>
-                            <input type="text" class="form-control credit-inputs" placeholder="Nome">
+                        <div class="col-md-6">
+                            <label class="credit-card-label">CVV</label>
+                            <input type="text" class="form-control credit-inputs" placeholder="342">
                         </div>
-                        <div>
-                            <label class="credit-card-label">Numero di carta</label>
-                            <input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="credit-card-label">Data di scadenza</label>
-                                <input type="text" class="form-control credit-inputs" placeholder="12/24">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="credit-card-label">CVV</label>
-                                <input type="text" class="form-control credit-inputs" placeholder="342">
-                            </div>
-                        </div>
-                        <hr class="line">
-                        <div class="d-flex justify-content-between information">
-                            <span>Subtotale</span>
-                            <span>€<?php echo number_format($totalPrice, 2); ?></span>
-                        </div>
-                        <div class="d-flex justify-content-between information">
-                            <span>Consegna (3%)</span>
-                            <span>€<?php echo number_format($tax, 2); ?></span>
-                        </div>
-                        <div class="d-flex justify-content-between information">
-                            <span>Totale (Incl. spedizione)</span>
+                    </div>
+                    <hr class="line">
+                    <div class="d-flex justify-content-between information">
+                        <span>Subtotale</span>
+                        <span>€<?php echo number_format($totalPrice, 2); ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between information">
+                        <span>Consegna (3%)</span>
+                        <span>€<?php echo number_format($tax, 2); ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between information">
+                        <span>Totale (Incl. spedizione)</span>
+                        <span>€<?php echo number_format($totalWithTax, 2); ?></span>
+                    </div>
+                    <form id="payment-form" method="post" action="process_payment.php">
+                        <button id="payment-button" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
                             <span>€<?php echo number_format($totalWithTax, 2); ?></span>
-                        </div>
-                        <form id="payment-form" method="post" action="process_payment.php">
-                            <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
-                                <span>€<?php echo number_format($totalWithTax, 2); ?></span>
-                                <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
-                            </button>
-                        </form>
-                    </div>
+                            <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
+                        </button>
+                    </form>
+                </div>
                 <?php else: ?>
-                    <div class="alert alert-warning" role="alert">
-                        Il tuo carrello è vuoto. Aggiungi prodotti al carrello per procedere con il pagamento.
-                    </div>
+                <div class="alert alert-warning" role="alert">
+                    Il tuo carrello è vuoto. Aggiungi prodotti al carrello per procedere con il pagamento.
+                </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </body>
 </html>
+
