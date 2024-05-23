@@ -94,6 +94,15 @@
         .spec {
             font-size: 11px;
         }
+
+        /* Stili aggiuntivi per i cursori */
+        #payment-button:disabled {
+            cursor: not-allowed;
+        }
+
+        #payment-button.waiting {
+            cursor: wait;
+        }
     </style>
     <script>
     function handlePaymentResponse(response) {
