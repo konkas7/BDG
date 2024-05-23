@@ -94,6 +94,15 @@
         .spec {
             font-size: 11px;
         }
+
+        #loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
     </style>
     <script>
     function handlePaymentResponse(response) {
@@ -114,21 +123,34 @@
 
     function submitPaymentForm(event) {
         event.preventDefault();
-        const paymentButton = document.getElementById('payment-button');
-        paymentButton.disabled = true;
 
         const formData = new FormData(document.getElementById('payment-form'));
+        const paymentButton = document.getElementById('payment-button');
+        const loadingSpinner = document.getElementById('loading-spinner');
+
+        // Disabilita il pulsante di pagamento e mostra la rotella di caricamento
+        paymentButton.disabled = true;
+        loadingSpinner.style.display = 'block';
+
         fetch('process_payment.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
-        .then(data => handlePaymentResponse(data))
+        .then(data => {
+            handlePaymentResponse(data);
+            // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento
+            paymentButton.disabled = false;
+            loadingSpinner.style.display = 'none';
+        })
         .catch(error => {
             console.error('Errore:', error);
+            // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento in caso di errore
             paymentButton.disabled = false;
+            loadingSpinner.style.display = 'none';
         });
     }
+
 
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
@@ -136,6 +158,12 @@
     </script>
 </head>
 <body>
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Caricamento...</span>
+        </div>
+    </div>
+
     <div class="container mt-5 p-3 rounded cart">
         <div class="row no-gutters">
             <div class="col-md-8">
@@ -271,16 +299,17 @@
                         <span>€<?php echo number_format($totalWithTax, 2); ?></span>
                     </div>
                     <form id="payment-form" method="post" action="process_payment.php">
-                        <button id="payment-button" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
-                            <span>€<?php echo number_format($totalWithTax, 2); ?></span>
-                            <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
-                        </button>
+                    <button id="payment-button" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
+                        <span>€<?php echo number_format($totalWithTax, 2); ?></span>
+                        <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
+                    </button>
+
                     </form>
                 </div>
                 <?php else: ?>
-                <div class="alert alert-warning" role="alert">
-                    Il tuo carrello è vuoto. Aggiungi prodotti al carrello per procedere con il pagamento.
-                </div>
+                    <div class="alert alert-warning" role="alert">
+                        Il tuo carrello è vuoto. Aggiungi prodotti al carrello per procedere con il pagamento.
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
