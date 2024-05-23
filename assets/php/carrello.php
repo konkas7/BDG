@@ -1,10 +1,10 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <style>
         .payment-info {
             background: blue;
@@ -13,39 +13,31 @@
             color: #fff;
             font-weight: bold;
         }
-
         .product-details {
             padding: 10px;
         }
-
         body {
             background: url(../images/welcome-hero/banner.png) no-repeat;
             background-position: center;
             background-size: cover;
         }
-
         .cart {
             background: #fff;
         }
-
         .p-about {
             font-size: 12px;
         }
-
         .table-shadow {
             -webkit-box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.42);
             box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.42);
         }
-
         .type {
             font-weight: 400;
             font-size: 10px;
         }
-
         label.radio {
             cursor: pointer;
         }
-
         label.radio input {
             position: absolute;
             top: 0;
@@ -53,7 +45,6 @@
             visibility: hidden;
             pointer-events: none;
         }
-
         label.radio span {
             padding: 1px 12px;
             border: 2px solid #ada9a9;
@@ -64,56 +55,77 @@
             font-size: 11px;
             font-weight: 300;
         }
-
         label.radio input:checked + span {
             border-color: #fff;
             background-color: blue;
             color: #fff;
         }
-
         .credit-inputs {
             background: rgb(102, 102, 221);
             color: #fff !important;
             border-color: rgb(102, 102, 221);
         }
-
         .credit-inputs::placeholder {
             color: #fff;
             font-size: 13px;
         }
-
         .credit-card-label {
             font-size: 9px;
             font-weight: 300;
         }
-
         .form-control.credit-inputs:focus {
             background: rgb(102, 102, 221);
             border: rgb(102, 102, 221);
         }
-
         .line {
             border-bottom: 1px solid rgb(102, 102, 221);
         }
-
         .information span {
             font-size: 12px;
             font-weight: 500;
         }
-
         .information {
             margin-bottom: 5px;
         }
-
         .items {
             -webkit-box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.25);
             box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08);
         }
-
         .spec {
             font-size: 11px;
         }
     </style>
+    <script>
+    function handlePaymentResponse(response) {
+        if (response.success) {
+            if (confirm(response.message + "\nVuoi tornare alla pagina principale?")) {
+                window.location.href = "../../index.php"; // Cambia questo al percorso della tua pagina principale
+            }
+            else{
+                //quando si preme annulla
+                window.location.reload();
+            }
+        } else {
+            alert(response.error || "Errore sconosciuto");
+        }
+    }
+
+    function submitPaymentForm(event) {
+        event.preventDefault();
+        const formData = new FormData(document.getElementById('payment-form'));
+        fetch('process_payment.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => handlePaymentResponse(data))
+        .catch(error => console.error('Errore:', error));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
+    });
+    </script>
 </head>
 <body>
     <div class="container mt-5 p-3 rounded cart">
@@ -139,8 +151,6 @@
 
                     <!-- Codice PHP per recuperare i prodotti dal carrello -->
                     <?php
-                        // Connessione al database
-                        session_start();
                         include 'db_connection.php';
 
                         if (isset($_SESSION['user_id'])) {
@@ -157,21 +167,19 @@
                                 WHERE u.id = '$userId'
                                 GROUP BY p.id, p.nome, p.prezzo, cat.nome_categoria";
 
-                        // Esegui la query SQL
                         $result = $conn->query($sql);
 
-                        // Controllo degli errori SQL
                         if (!$result) {
                             die("Errore nella query: " . $conn->error);
                         }
 
-                        $totalPrice = 0; // Inizializza il totale
-                        $totalItems = 0; // Inizializza il conteggio degli articoli
+                        $totalPrice = 0;
+                        $totalItems = 0;
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
-                                $totalPrice += $row["prezzo_totale"]; // Aggiungi al totale
-                                $totalItems += $row["quantita"]; // Aggiungi al conteggio degli articoli
+                                $totalPrice += $row["prezzo_totale"];
+                                $totalItems += $row["quantita"];
 
                                 echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">';
                                 echo '<div class="d-flex flex-row"><img class="rounded" src="' . $imageURL . '" alt="' . $row['nome'] . '" width="40">';
@@ -185,11 +193,9 @@
                             echo "<p>Nessun prodotto nel carrello</p>";
                         }
 
-                        // Calcolo delle tasse (3%)
                         $tax = $totalPrice * 0.03;
                         $totalWithTax = $totalPrice + $tax;
 
-                        // Chiudi la connessione al database
                         $conn->close();
                     ?>
 
@@ -199,7 +205,6 @@
                             window.history.back();
                         });
                     </script>
-                    <!-- Fine del codice PHP per recuperare i prodotti dal carrello -->
                 </div>
             </div>
             <div class="col-md-4">
@@ -262,8 +267,6 @@
                             <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
                         </button>
                     </form>
-
-                    
                 </div>
             </div>
         </div>

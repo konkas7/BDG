@@ -2,6 +2,8 @@
 session_start();
 include 'db_connection.php'; // Aggiorna il percorso se necessario
 
+$response = [];
+
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 } else {
@@ -20,7 +22,9 @@ $sql = "SELECT p.nome, p.prezzo, p.origine, cat.nome_categoria, COUNT(*) as quan
 $result = $conn->query($sql);
 
 if (!$result) {
-    die("Errore nella query: " . $conn->error);
+    $response['error'] = "Errore nella query: " . $conn->error;
+    echo json_encode($response);
+    exit();
 }
 
 // Prepara i dati per l'email
@@ -49,24 +53,29 @@ chdir(dirname(__FILE__) . '/../py');
 exec("python3 email_sender.py 2>&1", $output, $resultCode);
 
 // Aggiungi debug per l'output e il codice di ritorno
-echo "Output script Python: " . implode("\n", $output) . "<br>";
-echo "Codice di ritorno: " . $resultCode . "<br>";
+$response['output'] = implode("\n", $output);
+$response['code'] = $resultCode;
 
 // Controlla se lo script Python ha avuto successo
 if ($resultCode === 0) {
-    echo "Email inviata con successo!";
+    $response['message'] = "Email inviata con successo!";
     
     // Elimina i prodotti dal carrello dopo che l'email è stata inviata
     $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
     if ($conn->query($deleteSql) === TRUE) {
-        echo "Prodotti rimossi dal carrello con successo.";
+        $response['message'] .= " Prodotti rimossi dal carrello con successo.";
+        $response['success'] = true;
     } else {
-        echo "Errore nella rimozione dei prodotti dal carrello: " . $conn->error;
+        $response['error'] = "Errore nella rimozione dei prodotti dal carrello: " . $conn->error;
+        $response['success'] = false;
     }
 } else {
-    echo "Errore nell'invio dell'email.";
+    $response['error'] = "Errore nell'invio dell'email.";
+    $response['success'] = false;
 }
 
 // Chiudi la connessione al database
 $conn->close();
+
+echo json_encode($response);
 ?>

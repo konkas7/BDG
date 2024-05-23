@@ -628,6 +628,7 @@
 		
 
 		<?php include 'assets/php/orari.php' ?>
+		<p style="margin-bottom: 100px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2779.0519212165404!2d9.570754276127108!3d45.850260171082866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4784010f4bb4ffcb%3A0xd4c76ef09a22360a!2sLa%20bottega%20di%20Gerosa!5e0!3m2!1sit!2sit!4v1716458919748!5m2!1sit!2sit" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
         
         
         
