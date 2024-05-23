@@ -1266,6 +1266,7 @@ $_SESSION['LAST_ACTIVITY'] = time();
 				                <a class="navbar-brand" href="index.html">B<span>D</span>G</a>
 				            </div><!--/.navbar-header-->
 			           	</div>
+						
 			           	<div class="col-sm-9">
 			           		<ul class="footer-menu-item">
 			                    <li class=" scroll active"><a href="#home">home</a></li>

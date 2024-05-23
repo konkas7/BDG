@@ -238,12 +238,13 @@
                         $conn->close();
                     ?>
 
-                    <script>
-                        document.getElementById("cart-count").innerText = "Hai <?php echo $totalItems; ?> elementi nel tuo carrello";
-                        document.getElementById("back-arrow").addEventListener("click", function() {
-                            window.history.back();
-                        });
-                    </script>
+                    <?php if ($totalItems > 0): ?>
+                        <script>
+                            document.getElementById("cart-count").innerText = "Hai <?php echo $totalItems; ?> elementi nel tuo carrello";
+                            
+                        </script>
+                    <?php endif; ?>
+                    <script>document.getElementById("back-arrow").addEventListener("click", function() {window.history.back();}); </script>
                 </div>
             </div>
             <div class="col-md-4">
