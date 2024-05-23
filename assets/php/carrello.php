@@ -105,51 +105,54 @@
 
     </style>
     <script>
-    function handlePaymentResponse(response) {
-        const paymentButton = document.getElementById('payment-button');
-        if (response.success) {
-            if (confirm(response.message + "\nVuoi tornare alla pagina principale?")) {
-                window.location.href = "../../index.php"; // Cambia questo al percorso della tua pagina principale
+        function handlePaymentResponse(response) {
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            if (response.success) {
+                if (confirm(response.message + "\nVuoi tornare alla pagina principale?")) {
+                    window.location.href = "../../index.php"; // Cambia questo al percorso della tua pagina principale
+                } else {
+                    // Quando si preme annulla
+                    window.location.reload();
+                }
+            } else {
+                alert(response.error || "Errore sconosciuto");
             }
-            else{
-                //quando si preme annulla
-                window.location.reload();
-            }
-        } else {
-            alert(response.error || "Errore sconosciuto");
-            paymentButton.disabled = false;
+
+            // Nascondi la rotella di caricamento dopo che il popup è stato chiuso
+            loadingSpinner.style.display = 'none';
         }
-    }
 
-    function submitPaymentForm(event) {
-        event.preventDefault();
 
-        const formData = new FormData(document.getElementById('payment-form'));
-        const paymentButton = document.getElementById('payment-button');
-        const loadingSpinner = document.getElementById('loading-spinner');
+        function submitPaymentForm(event) {
+            event.preventDefault();
 
-        // Disabilita il pulsante di pagamento e mostra la rotella di caricamento
-        paymentButton.disabled = true;
-        loadingSpinner.style.display = 'block';
+            const formData = new FormData(document.getElementById('payment-form'));
+            const paymentButton = document.getElementById('payment-button');
+            const loadingSpinner = document.getElementById('loading-spinner');
 
-        fetch('process_payment.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            handlePaymentResponse(data);
-            // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento
-            paymentButton.disabled = false;
-            loadingSpinner.style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Errore:', error);
-            // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento in caso di errore
-            paymentButton.disabled = false;
-            loadingSpinner.style.display = 'none';
-        });
-    }
+            // Disabilita il pulsante di pagamento e mostra la rotella di caricamento
+            paymentButton.disabled = true;
+            loadingSpinner.style.display = 'block';
+
+            fetch('process_payment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                handlePaymentResponse(data);
+                // Riabilita il pulsante di pagamento, ma non nascondere la rotella qui
+                paymentButton.disabled = false;
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento in caso di errore
+                paymentButton.disabled = false;
+                loadingSpinner.style.display = 'none';
+            });
+        }
+
 
 
     document.addEventListener('DOMContentLoaded', function() {
