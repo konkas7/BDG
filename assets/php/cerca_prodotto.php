@@ -144,160 +144,257 @@
             margin: 0; /* Rimuovi il margine predefinito */
             padding: 0; /* Rimuovi il padding predefinito */
         }
-
+        @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h3 {
+            font-family: Quicksand;
+        }
+        .alert {
+            width: 30%;
+            margin: 20px auto;
+            padding: 30px;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0 0 15px 5px #ccc;
+            display: none; /* Hide alerts by default */
+        }
+        .close_avviso {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.5;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 50%;
+            right: 15px;
+            top: 25px;
+            text-align: center;
+            font-size: 1.6em;
+            cursor: pointer;
+        }
+        @mixin alert($name, $bgColor) {
+            $accentColor: darken($bgColor, 50%);
+            .#{$name} {
+                background-color: #{$bgColor};
+                border-left: 5px solid $accentColor;
+                .close_avviso {
+                    border-color: $accentColor;
+                    color: $accentColor;
+                }
+            }
+        }
+        .simple-alert {
+            background-color: #ebebeb;
+            border-left: 5px solid darken(#ebebeb, 50%);
+        }
+        .simple-alert .close {
+            border-color: darken(#ebebeb, 50%);
+            color: darken(#ebebeb, 50%);
+        }
+        .success-alert {
+            background-color: #a8f0c6;
+            border-left: 5px solid darken(#a8f0c6, 50%);
+        }
+        .success-alert .close_avviso {
+            border-color: darken(#a8f0c6, 50%);
+            color: darken(#a8f0c6, 50%);
+        }
+        .danger-alert {
+            background-color: #f7a7a3;
+            border-left: 5px solid darken(#f7a7a3, 50%);
+        }
+        .danger-alert .close_avviso {
+            border-color: darken(#f7a7a3, 50%);
+            color: darken(#f7a7a3, 50%);
+        }
+        .warning-alert {
+            background-color: #ffd48a;
+            border-left: 5px solid darken(#ffd48a, 50%);
+        }
+        .warning-alert .close_avviso {
+            border-color: darken(#ffd48a, 50%);
+            color: darken(#ffd48a, 50%);
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
+    <!-- Alert Boxes -->
+    <div class="alert simple-alert">
+        <h3>Simple Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert success-alert">
+        <h3>Success Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert danger-alert">
+        <h3>Danger Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert warning-alert">
+        <h3>Warning Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="products-container clearfix"> <!-- Product Container -->
+                <?php
+                // Include database connection
+                include 'db_connection.php';
 
-  <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div class="products-container clearfix"> <!-- Product Container -->
-            <?php
-            // Include database connection
-            include 'db_connection.php';
+                // Retrieve category and name selections from the form
+                $categoria = $_POST['categoria'];
+                $nome = $_POST['nome'];
 
-           
+                // Query to fetch products based on category and name selections
+                $sql = "SELECT p.*, c.nome_categoria 
+                        FROM prodotti p
+                        INNER JOIN categorie c ON p.categoria_id = c.id
+                        WHERE ('$nome' != '' AND (LOWER(p.nome) LIKE LOWER('%$nome%') OR SOUNDEX(p.nome) = SOUNDEX('$nome')))
+                        OR ('$nome' = '' AND (c.nome_categoria = '$categoria' OR '$categoria' = ''))";
 
-            // Retrieve category and name selections from the form
-            $categoria = $_POST['categoria'];
-            $nome = $_POST['nome'];
-            
+                $result = $conn->query($sql);
 
-            // Query to fetch products based on category and name selections
-            $sql = "SELECT p.*, c.nome_categoria 
-                    FROM prodotti p
-                    INNER JOIN categorie c ON p.categoria_id = c.id
-                    WHERE ('$nome' != '' AND (LOWER(p.nome) LIKE LOWER('%$nome%') OR SOUNDEX(p.nome) = SOUNDEX('$nome')))
-                    OR ('$nome' = '' AND (c.nome_categoria = '$categoria' OR '$categoria' = ''))";
+                // Check if any products are found
+                if ($result->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        // Compose image URL using category name and product name
+                        $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 
-
-
-
-            $result = $conn->query($sql);
-
-
-           
-
-          
-
-            
-
-            // Check if any products are found
-            if ($result->num_rows > 0) {
-                // Output data of each row
-                while ($row = $result->fetch_assoc()) {
-                    // Compose image URL using category name and product name
-                    $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
-
-                    // Display product information
-                    echo "<div class='product'>"; // Added 'product' class for each product
-                    echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
-                    echo "<div class='product-info'>"; // Added product-info div
-                    echo "<h2>" . $row['nome'] . "</h2>";
-                    echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
-                    echo "<p>Origine: " . $row['origine'] . "</p>";
-                    echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
-                    echo "</div>"; // Closed product-info div
-                    // Button to add to cart
-                    // Bottone per aggiungere al carrello (visibile solo se l'utente è loggato)
-                    if(isset($_SESSION['user_id'])) {
-                        echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $_SESSION['user_id'] . ")'>Carrello</button>";
-                    }                    
-                    echo "</div>";
+                        // Display product information
+                        echo "<div class='product'>"; // Added 'product' class for each product
+                        echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
+                        echo "<div class='product-info'>"; // Added product-info div
+                        echo "<h2>" . $row['nome'] . "</h2>";
+                        echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
+                        echo "<p>Origine: " . $row['origine'] . "</p>";
+                        echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
+                        echo "</div>"; // Closed product-info div
+                        // Button to add to cart
+                        // Bottone per aggiungere al carrello (visibile solo se l'utente è loggato)
+                        if (isset($_SESSION['user_id'])) {
+                            echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $_SESSION['user_id'] . ")'>Carrello</button>";
+                        }
+                        echo "</div>";
+                    }
+                } else {
+                    echo "Nessun prodotto trovato.";
                 }
-            } else {
-                echo "Nessun prodotto trovato.";
-            }
 
-            // Close database connection
-            $conn->close();
-            ?>
+                // Close database connection
+                $conn->close();
+                ?>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // Function to open the modal
-    function openModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-    }
-
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on <span> (x), close the modal
-    function closeModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-        window.location.href = "/bdg/index.php";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        closeModal();
-    }
-    }
-    
-
-    // Funzione per aggiungere un prodotto al carrello
-    // Funzione per aggiungere un prodotto al carrello
-    function addToCart(productId, userId) {
-
-
-        // Verifica se l'utente è loggato
-        if (!userId) {
-            alert('Utente non valido. Si prega di effettuare il login.');
-            return;
+    <script>
+        // Function to open the modal
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
         }
 
+        // Get the modal
+        var modal = document.getElementById("myModal");
 
-        // Creazione dell'oggetto XMLHttpRequest
-        var xhr = new XMLHttpRequest();
-        
-        // URL del file PHP che gestisce l'aggiunta al carrello
-        var url = "../php/aggiungi_al_carrello.php";
-        
-        // Parametri da inviare
-        var params = "productId=" + productId + "&userId=" + userId;
-        
-        // Configurazione della richiesta
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        
-        // Funzione di callback quando la richiesta viene completata
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState == 4 && xhr.status == 200) {
-                // Parse della risposta JSON
-                var response = JSON.parse(xhr.responseText);
-                
-                // Visualizzazione del messaggio di conferma o dell'errore
-                if(response.error) {
-                    alert(response.error);
-                }
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            window.location.href = "/bdg/index.php";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
             }
         }
-        
-        // Invio della richiesta con i parametri
-        xhr.send(params);
-    }
 
+        $(".close_avviso").click(function() {
+            $(this).parent(".alert").fadeOut();
+        });
 
-    // Esegui la funzione openModal quando la pagina si carica
-    window.onload = function() {
-        openModal();
-    };
-</script>
+        function showAlert(type, message) {
+            var alertClass = '';
+            switch (type) {
+                case 'success':
+                    alertClass = 'success-alert';
+                    break;
+                case 'danger':
+                    alertClass = 'danger-alert';
+                    break;
+                case 'warning':
+                    alertClass = 'warning-alert';
+                    break;
+                default:
+                    alertClass = 'simple-alert';
+            }
+            var alertBox = $('.' + alertClass);
+            alertBox.find('h3').text(message);
+            alertBox.fadeIn().delay(3000).fadeOut();
+        }
 
+        // Funzione per aggiungere un prodotto al carrello
+        function addToCart(productId, userId) {
+            // Verifica se l'utente è loggato
+            if (!userId) {
+                showAlert('danger', 'Utente non valido. Si prega di effettuare il login.');
+                return;
+            }
+
+            // Creazione dell'oggetto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            // URL del file PHP che gestisce l'aggiunta al carrello
+            var url = "../php/aggiungi_al_carrello.php";
+
+            // Parametri da inviare
+            var params = "productId=" + productId + "&userId=" + userId;
+
+            // Configurazione della richiesta
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            // Funzione di callback quando la richiesta viene completata
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Parse della risposta JSON
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Visualizzazione del messaggio di conferma o dell'errore
+                    if (response.error) {
+                        showAlert('danger', response.error);
+                    } else {
+                        showAlert('success', 'Prodotto aggiunto al carrello con successo!');
+                    }
+                }
+            }
+
+            // Invio della richiesta con i parametri
+            xhr.send(params);
+        }
+
+        // Esegui la funzione openModal quando la pagina si carica
+        window.onload = function() {
+            openModal();
+        };
+    </script>
 </body>
 </html>
 
