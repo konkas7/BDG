@@ -18,22 +18,20 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Modal Content/Box */
         .modal-content {
             background-color: #fff;
             margin: 10% auto;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 90%; /* Width set to 90% */
-            max-width: 800px; /* Maximum width increased for larger popup */
+            width: 90%;
+            max-width: 800px;
             position: relative;
         }
 
-        /* Close Button */
         .close {
             position: absolute;
             top: 10px;
@@ -43,7 +41,6 @@
             color: #555;
         }
 
-        /* Product Card */
         .products-container {
             display: flex;
             flex-wrap: wrap;
@@ -59,9 +56,9 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* Make the product grow to fill the space */
-            max-width: calc(25% - 20px); /* Maximum width for each product */
-            position: relative; /* Added for positioning the button */
+            flex-grow: 1;
+            max-width: calc(25% - 20px);
+            position: relative;
         }
 
         .product:hover {
@@ -75,36 +72,25 @@
             border-radius: 5px;
         }
 
-        /* Product Info */
         .product-info {
             text-align: center;
-            flex-grow: 1; /* Ensure the info div fills the space */
-            margin-bottom: 30px; /* Add bottom margin to create space for the button */
+            flex-grow: 1;
+            margin-bottom: 30px;
         }
 
-        /* Button to add to cart */
         .add-to-cart {
             position: absolute;
-            bottom: 0; /* Align the button to the bottom of the product */
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            margin-bottom: 10px; /* Add some space between the button and the product info */
-            
+            margin-bottom: 10px;
         }
 
-        /* Clearfix to prevent container collapse */
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        
         .button-89 {
-            --b: 3px;   /* border thickness */
-            --s: .45em; /* size of the corner */
+            --b: 3px;
+            --s: .45em;
             --color: #373B44;
-            
+
             padding: calc(.5em + var(--s)) calc(.9em + var(--s));
             color: var(--color);
             --_p: var(--s);
@@ -117,14 +103,13 @@
             font-size: 16px;
 
             border: 0;
-
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
         }
 
         .button-89:hover,
-        .button-89:focus-visible{
+        .button-89:focus-visible {
             --_p: 0px;
             outline-color: var(--color);
             outline-offset: .05em;
@@ -136,23 +121,26 @@
         }
 
         body {
-            background-image: url('../images/welcome-hero/banner.png'); /* Sostituisci 'path/to/your/image.jpg' con il percorso dell'immagine */
-            background-size: cover; /* Regola la dimensione dell'immagine in modo che copra tutto il background */
-            background-position: center center; /* Centra l'immagine nel background */
-            background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
-            height: 100vh; /* Imposta l'altezza del corpo al 100% dell'altezza dello schermo */
-            margin: 0; /* Rimuovi il margine predefinito */
-            padding: 0; /* Rimuovi il padding predefinito */
+            background-image: url('../images/welcome-hero/banner.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
+
         @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         h3 {
             font-family: Quicksand;
         }
+
         .alert {
             width: 30%;
             margin: 20px auto;
@@ -160,8 +148,9 @@
             position: relative;
             border-radius: 5px;
             box-shadow: 0 0 15px 5px #ccc;
-            display: none; /* Hide alerts by default */
+            display: none;
         }
+
         .close_avviso {
             position: absolute;
             width: 30px;
@@ -176,52 +165,48 @@
             font-size: 1.6em;
             cursor: pointer;
         }
-        @mixin alert($name, $bgColor) {
-            $accentColor: darken($bgColor, 50%);
-            .#{$name} {
-                background-color: #{$bgColor};
-                border-left: 5px solid $accentColor;
-                .close_avviso {
-                    border-color: $accentColor;
-                    color: $accentColor;
-                }
-            }
-        }
+
         .simple-alert {
             background-color: #ebebeb;
             border-left: 5px solid darken(#ebebeb, 50%);
         }
+
         .simple-alert .close {
             border-color: darken(#ebebeb, 50%);
             color: darken(#ebebeb, 50%);
         }
+
         .success-alert {
             background-color: #a8f0c6;
             border-left: 5px solid darken(#a8f0c6, 50%);
         }
+
         .success-alert .close_avviso {
             border-color: darken(#a8f0c6, 50%);
             color: darken(#a8f0c6, 50%);
         }
+
         .danger-alert {
             background-color: #f7a7a3;
             border-left: 5px solid darken(#f7a7a3, 50%);
         }
+
         .danger-alert .close_avviso {
             border-color: darken(#f7a7a3, 50%);
             color: darken(#f7a7a3, 50%);
         }
+
         .warning-alert {
             background-color: #ffd48a;
             border-left: 5px solid darken(#ffd48a, 50%);
         }
+
         .warning-alert .close_avviso {
             border-color: darken(#ffd48a, 50%);
             color: darken(#ffd48a, 50%);
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
     <!-- Alert Boxes -->
@@ -244,10 +229,9 @@
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <div class="products-container clearfix"> <!-- Product Container -->
+            <div class="products-container clearfix">
                 <?php
                 // Include database connection
                 include 'db_connection.php';
@@ -267,22 +251,17 @@
 
                 // Check if any products are found
                 if ($result->num_rows > 0) {
-                    // Output data of each row
                     while ($row = $result->fetch_assoc()) {
-                        // Compose image URL using category name and product name
                         $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
 
-                        // Display product information
-                        echo "<div class='product'>"; // Added 'product' class for each product
+                        echo "<div class='product'>";
                         echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
-                        echo "<div class='product-info'>"; // Added product-info div
+                        echo "<div class='product-info'>";
                         echo "<h2>" . $row['nome'] . "</h2>";
                         echo "<p>Prezzo: €" . $row['prezzo'] . "</p>";
                         echo "<p>Origine: " . $row['origine'] . "</p>";
                         echo "<p>Fornitore: " . $row['fornitore'] . "</p>";
-                        echo "</div>"; // Closed product-info div
-                        // Button to add to cart
-                        // Bottone per aggiungere al carrello (visibile solo se l'utente è loggato)
+                        echo "</div>";
                         if (isset($_SESSION['user_id'])) {
                             echo "<button class='button-89' role='button' onclick='addToCart(" . $row['id'] . ", " . $_SESSION['user_id'] . ")'>Carrello</button>";
                         }
@@ -292,7 +271,6 @@
                     echo "Nessun prodotto trovato.";
                 }
 
-                // Close database connection
                 $conn->close();
                 ?>
             </div>
@@ -300,28 +278,17 @@
     </div>
 
     <script>
-        // Function to open the modal
         function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
+            document.getElementById("myModal").style.display = "block";
         }
 
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
         function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
+            document.getElementById("myModal").style.display = "none";
             window.location.href = "/bdg/index.php";
         }
 
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            if (event.target == modal) {
+            if (event.target == document.getElementById("myModal")) {
                 closeModal();
             }
         }
@@ -350,34 +317,22 @@
             alertBox.fadeIn().delay(3000).fadeOut();
         }
 
-        // Funzione per aggiungere un prodotto al carrello
         function addToCart(productId, userId) {
-            // Verifica se l'utente è loggato
             if (!userId) {
                 showAlert('danger', 'Utente non valido. Si prega di effettuare il login.');
                 return;
             }
 
-            // Creazione dell'oggetto XMLHttpRequest
             var xhr = new XMLHttpRequest();
-
-            // URL del file PHP che gestisce l'aggiunta al carrello
             var url = "../php/aggiungi_al_carrello.php";
-
-            // Parametri da inviare
             var params = "productId=" + productId + "&userId=" + userId;
 
-            // Configurazione della richiesta
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-            // Funzione di callback quando la richiesta viene completata
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Parse della risposta JSON
                     var response = JSON.parse(xhr.responseText);
-
-                    // Visualizzazione del messaggio di conferma o dell'errore
                     if (response.error) {
                         showAlert('danger', response.error);
                     } else {
@@ -386,17 +341,12 @@
                 }
             }
 
-            // Invio della richiesta con i parametri
             xhr.send(params);
         }
 
-        // Esegui la funzione openModal quando la pagina si carica
         window.onload = function() {
             openModal();
         };
     </script>
 </body>
 </html>
-
-
-
