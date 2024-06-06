@@ -270,8 +270,6 @@ xhr.onreadystatechange = function() {
         // Visualizzazione del messaggio di conferma o dell'errore
         if(response.error) {
             alert(response.error);
-        } else {
-            alert(response.message);
         }
     }
 }

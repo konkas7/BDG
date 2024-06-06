@@ -115,7 +115,6 @@ $_SESSION['LAST_ACTIVITY'] = time();
 							</select>
 						</li>
 						<li class="select-opt">
-							<!--aggiungere le pagine in lingue diverse oppure aggiungere una libreria che mi traduca automaticamente le parole e modificare anche i prezzi in base alla valuta selezionata-->
 							<a href="#"><span class="lnr lnr-magnifier"></span></a>
 						</li>
 					</ul>

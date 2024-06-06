@@ -58,19 +58,16 @@ $response['code'] = $resultCode;
 
 // Controlla se lo script Python ha avuto successo
 if ($resultCode === 0) {
-    $response['message'] = "Email inviata con successo!";
+    $response['message'] = "Prodotti inviati con successo!";
     
     // Elimina i prodotti dal carrello dopo che l'email è stata inviata
     $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
     if ($conn->query($deleteSql) === TRUE) {
-        $response['message'] .= " Prodotti rimossi dal carrello con successo.";
         $response['success'] = true;
     } else {
-        $response['error'] = "Errore nella rimozione dei prodotti dal carrello: " . $conn->error;
         $response['success'] = false;
     }
 } else {
-    $response['error'] = "Errore nell'invio dell'email.";
     $response['success'] = false;
 }
 
