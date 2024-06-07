@@ -145,11 +145,102 @@
             margin: 0; /* Rimuovi il margine predefinito */
             padding: 0; /* Rimuovi il padding predefinito */
         }
+        @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        h3 {
+            font-family: Quicksand;
+        }
+
+        .alert {
+            width: 30%;
+            margin: 20px auto;
+            padding: 30px;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0 0 15px 5px #ccc;
+            display: none;
+        }
+
+        .close_avviso {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.5;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 50%;
+            right: 15px;
+            top: 25px;
+            text-align: center;
+            font-size: 1.6em;
+            cursor: pointer;
+        }
+
+        .simple-alert {
+            background-color: #ebebeb;
+            border-left: 5px solid darken(#ebebeb, 50%);
+        }
+
+        .simple-alert .close {
+            border-color: darken(#ebebeb, 50%);
+            color: darken(#ebebeb, 50%);
+        }
+
+        .success-alert {
+            background-color: #a8f0c6;
+            border-left: 5px solid darken(#a8f0c6, 50%);
+        }
+
+        .success-alert .close_avviso {
+            border-color: darken(#a8f0c6, 50%);
+            color: darken(#a8f0c6, 50%);
+        }
+
+        .danger-alert {
+            background-color: #f7a7a3;
+            border-left: 5px solid darken(#f7a7a3, 50%);
+        }
+
+        .danger-alert .close_avviso {
+            border-color: darken(#f7a7a3, 50%);
+            color: darken(#f7a7a3, 50%);
+        }
+
+        .warning-alert {
+            background-color: #ffd48a;
+            border-left: 5px solid darken(#ffd48a, 50%);
+        }
+
+        .warning-alert .close_avviso {
+            border-color: darken(#ffd48a, 50%);
+            color: darken(#ffd48a, 50%);
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
+<!-- Alert Boxes -->
+<div class="alert simple-alert">
+        <h3>Simple Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert success-alert">
+        <h3>Success Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert danger-alert">
+        <h3>Danger Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
+    <div class="alert warning-alert">
+        <h3>Warning Alert Message</h3>
+        <a class="close_avviso">&times;</a>
+    </div>
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -179,8 +270,12 @@
             if ($result->num_rows > 0) {
                 // Output data of each row
                 while ($row = $result->fetch_assoc()) {
+                    // Replace spaces with underscores in the product name
+
+                    $imageName = str_replace(' ', '_', $row['nome']);
+
                     // Compose image URL using category name and product name
-                    $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                    $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($imageName) . ".jpg";
 
                     // Display product information
                     echo "<div class='product'>"; // Added 'product' class for each product
@@ -237,13 +332,37 @@ window.onclick = function(event) {
   }
 }
 
+$(".close_avviso").click(function() {
+            $(this).parent(".alert").fadeOut();
+        });
+
+        function showAlert(type, message) {
+            var alertClass = '';
+            switch (type) {
+                case 'success':
+                    alertClass = 'success-alert';
+                    break;
+                case 'danger':
+                    alertClass = 'danger-alert';
+                    break;
+                case 'warning':
+                    alertClass = 'warning-alert';
+                    break;
+                default:
+                    alertClass = 'simple-alert';
+            }
+            var alertBox = $('.' + alertClass);
+            alertBox.find('h3').text(message);
+            alertBox.fadeIn().delay(3000).fadeOut();
+        }
+
 // Funzione per aggiungere un prodotto al carrello
 function addToCart(productId, userId) {
 
 
 // Verifica se l'utente è loggato
 if (!userId) {
-    alert('Utente non valido. Si prega di effettuare il login.');
+    showAlert('danger', 'Utente non valido. Si prega di effettuare il login.');
     return;
 }
 
@@ -262,17 +381,16 @@ xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 // Funzione di callback quando la richiesta viene completata
-xhr.onreadystatechange = function() {
-    if(xhr.readyState == 4 && xhr.status == 200) {
-        // Parse della risposta JSON
-        var response = JSON.parse(xhr.responseText);
-        
-        // Visualizzazione del messaggio di conferma o dell'errore
-        if(response.error) {
-            alert(response.error);
-        }
-    }
-}
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.error) {
+                        showAlert('danger', response.error);
+                    } else {
+                        showAlert('success', 'Prodotto aggiunto al carrello con successo!');
+                    }
+                }
+            }
 
 // Invio della richiesta con i parametri
 xhr.send(params);

@@ -252,7 +252,9 @@
                 // Check if any products are found
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                        // Replace spaces with underscores in the product name
+                        $imageName = str_replace(' ', '_', $row['nome']);
+                        $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($imageName) . ".jpg";
 
                         echo "<div class='product'>";
                         echo "<img src='" . $imageURL . "' alt='" . $row['nome'] . "' width='150'>";
