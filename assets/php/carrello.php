@@ -1,4 +1,4 @@
-<?php session_start()?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,9 +118,14 @@
             loadingSpinner.style.display = 'none';
         }
 
-
         function submitPaymentForm(event) {
             event.preventDefault();
+
+            const address = document.querySelector('input[name="address"]').value.trim();
+            if (!address) {
+                alert("Per favore, inserisci l'indirizzo di consegna prima di procedere con il pagamento.");
+                return; // Blocca l'invio del modulo
+            }
 
             const formData = new FormData(document.getElementById('payment-form'));
             const paymentButton = document.getElementById('payment-button');
@@ -325,4 +330,3 @@
     </div>
 </body>
 </html>
-?>
