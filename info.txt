@@ -1,55 +1,8 @@
-INFORMAZIONI LAVORI
+TUTTE LE COSE CHE BISOGNA FARE
 
-
-
-COMPLETATE
-
-#carrello
-- front-end
-- hover freccia fatto (anche prima ma non funzionava)
-#doppia_categoria
-- copiare esattamente tutto quello che ho fatto nella ricerca
-- aggiunto session_start()
-#index.php
-- metodo post anche per doppia categoria
-- ricerca da nome
-- svuotamento casella email newsletter
-
-
-
-
-DA FARE
-
-#carrello
-    - non funziona il sort del carrello
-    - non funziona il delete del carrello
-    - pagamento completo
-
-#doppia_categoria
-
-
-#index.php
-- nav bar finale non funzionante
-
-#modern_login_page.php
-- gestire le sezioni (es. pagina#login)
-- rimuovere messaggi di errore quando si cambia sezione
-
-
-
-
-#login
-- rimuovere caselle piene
-
-
-
-----------------------------------------------------------------------------------------------------
-
-visualizzazione negozio su mappa
-
-contact me
-
-PAGINA OWNER
-
-- visualizzazione ordini
-- newsletter
+- I salumi e i formaggi vanno a peso e non a Quantità
+- Bloccare il bottone di pagamento
+- Sistemare la navbar (rimane il colore)
+- Sistemare la navbar in fondo
+- Rimuovere il sort nel carrello
+- Far funzionare l'elimina nel carrello

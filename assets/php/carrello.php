@@ -17,8 +17,8 @@
             padding: 10px;
         }
         body {
-            background: url(../images/welcome-hero/banner.png) no-repeat;
-            background-position: center;
+            background: url(../images/welcome-hero/banner.png) no-repeat center center;
+            background-repeat: repeat;
             background-size: cover;
         }
         .cart {
@@ -263,7 +263,9 @@
                         $totalItems = 0;
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                                // Replace spaces with underscores in the product name
+                                $imageName = str_replace(' ', '_', $row['nome']);
+                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($imageName) . ".jpg";
                                 $totalPrice += $row["prezzo_totale"];
                                 $totalItems += $row["quantita"];
 
