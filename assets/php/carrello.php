@@ -209,6 +209,37 @@
                 }, this);
             });
         });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-product');
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    const productId = this.getAttribute('data-product-id');
+                    deleteProduct(productId);
+                });
+            });
+        });
+
+        function deleteProduct(productId) {
+            fetch('delete_product.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: productId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Gestisci la risposta qui, ad esempio, aggiorna la visualizzazione del carrello
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Errore durante la cancellazione del prodotto:', error);
+            });
+        }
     </script>
 </head>
 <body>
@@ -243,7 +274,7 @@
                             $userId = "999"; // o qualsiasi valore di default per gli utenti non autenticati
                         }
 
-                        $sql = "SELECT p.nome, p.prezzo, p.origine, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
+                        $sql = "SELECT p.id, p.nome, p.prezzo, p.origine, cat.nome_categoria, COUNT(*) as quantita, SUM(p.prezzo) as prezzo_totale
                                 FROM carrello car
                                 INNER JOIN prodotti p ON car.prodotto_id = p.id
                                 INNER JOIN dati_utente u ON car.utente_id = u.id
@@ -273,7 +304,7 @@
                                 echo '<span class="spec">' . $row["origine"] . '</span></div></div>';
                                 echo '<div class="d-flex flex-row align-items-center"><span class="d-block">' . $row["quantita"] . '</span>';
                                 echo '<span class="d-block ml-5 font-weight-bold">€' . $row["prezzo_totale"] . '</span>';
-                                echo '<i class="fa fa-trash-o ml-3 text-black-50"></i></div></div>';
+                                echo '<i class="fa fa-trash-o ml-3 text-black-50" data-product-id="' . $row["id"] . '"></i></div></div>';
                             }
                         } else {
                             echo "<p>Nessun prodotto nel carrello</p>";
