@@ -27,53 +27,124 @@ if (!$result) {
     exit();
 }
 
-// Prepara i dati per l'email
-$orderDetails = "";
-while ($row = $result->fetch_assoc()) {
-    $orderDetails .= $row['nome'] . " - Quantità: " . $row['quantita'] . " - Prezzo: €" . $row['prezzo_totale'] . "\n";
-}
 
-// Recupera il nome dell'utente
-$userName = "Cliente";
-$sqlUser = "SELECT nome FROM dati_utente WHERE id = '$userId'";
-$resultUser = $conn->query($sqlUser);
-if ($resultUser && $resultUser->num_rows > 0) {
-    $rowUser = $resultUser->fetch_assoc();
-    $userName = $rowUser['nome'];
-}
+$payment_type = $_POST['payment_type'];
 
-// Recupera i dati del paese e dell'indirizzo dal POST
-$country = isset($_POST['country']) ? $_POST['country'] : 'N/A';
-$address = isset($_POST['address']) ? $_POST['address'] : 'N/A';
 
-// Scrivi i dati in un file temporaneo nella directory Python
-$orderDetailsPath = dirname(__FILE__) . '/../py/order_details.txt';
-file_put_contents($orderDetailsPath, $userName . " | " . $country . " | " . $address . "\n\n" . $orderDetails, LOCK_EX);
+if ($payment_type == 'online') {
+    //----------------------------------------------------------------
+    //
+    //     BISOGNA GESTIRE LA CARTA DI CREDITO ATTRAVERSO PAYPAL
+    //
+    //----------------------------------------------------------------
+    // Prepara i dati per l'email
+    $orderDetails = "";
+    while ($row = $result->fetch_assoc()) {
+        $orderDetails .= $row['nome'] . " - Quantità: " . $row['quantita'] . " - Prezzo: €" . $row['prezzo_totale'] . "\n";
+    }
 
-// Cambia la directory corrente
-chdir(dirname(__FILE__) . '/../py');
+    // Recupera il nome dell'utente
+    $userName = "Cliente";
+    $sqlUser = "SELECT nome FROM dati_utente WHERE id = '$userId'";
+    $resultUser = $conn->query($sqlUser);
+    if ($resultUser && $resultUser->num_rows > 0) {
+        $rowUser = $resultUser->fetch_assoc();
+        $userName = $rowUser['nome'];
+    }
 
-// Esegui lo script Python con percorso assoluto
-exec("python3 email_sender.py 2>&1", $output, $resultCode);
+    // Recupera i dati del paese e dell'indirizzo dal POST
+    $country = isset($_POST['country']) ? $_POST['country'] : 'N/A';
+    $address = isset($_POST['address']) ? $_POST['address'] : 'N/A';
+    $soldini = 'PAGATO';
 
-// Aggiungi debug per l'output e il codice di ritorno
-$response['output'] = implode("\n", $output);
-$response['code'] = $resultCode;
+    // Scrivi i dati in un file temporaneo nella directory Python
+    $orderDetailsPath = dirname(__FILE__) . '/../py/order_details.txt';
+    file_put_contents($orderDetailsPath, $userName . " - " . $country . " " . $address  . " - " . $soldini . "\n\n" . $orderDetails, LOCK_EX);
 
-// Controlla se lo script Python ha avuto successo
-if ($resultCode === 0) {
-    $response['message'] = "Prodotti inviati con successo!";
-    
-    // Elimina i prodotti dal carrello dopo che l'email è stata inviata
-    $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
-    if ($conn->query($deleteSql) === TRUE) {
-        $response['success'] = true;
+    // Cambia la directory corrente
+    chdir(dirname(__FILE__) . '/../py');
+
+    // Esegui lo script Python con percorso assoluto
+    exec("python3 email_sender.py 2>&1", $output, $resultCode);
+
+    // Aggiungi debug per l'output e il codice di ritorno
+    $response['output'] = implode("\n", $output);
+    $response['code'] = $resultCode;
+
+    // Controlla se lo script Python ha avuto successo
+    if ($resultCode === 0) {
+        $response['message'] = "Prodotti inviati con successo!";
+        
+        // Elimina i prodotti dal carrello dopo che l'email è stata inviata
+        $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
+        if ($conn->query($deleteSql) === TRUE) {
+            $response['success'] = true;
+        } else {
+            $response['success'] = false;
+        }
     } else {
         $response['success'] = false;
     }
-} else {
-    $response['success'] = false;
+
+} elseif ($payment_type == 'in_store') {
+
+    //processa il pagamento in negozio
+    // Prepara i dati per l'email
+    $orderDetails = "";
+    while ($row = $result->fetch_assoc()) {
+        $orderDetails .= $row['nome'] . " - Quantità: " . $row['quantita'] . " - Prezzo: €" . $row['prezzo_totale'] . "\n";
+    }
+
+    // Recupera il nome dell'utente
+    $userName = "Cliente";
+    $sqlUser = "SELECT nome FROM dati_utente WHERE id = '$userId'";
+    $resultUser = $conn->query($sqlUser);
+    if ($resultUser && $resultUser->num_rows > 0) {
+        $rowUser = $resultUser->fetch_assoc();
+        $userName = $rowUser['nome'];
+    }
+
+    // Recupera i dati del paese e dell'indirizzo dal POST
+    $country = isset($_POST['country']) ? $_POST['country'] : 'N/A';
+    $address = isset($_POST['address']) ? $_POST['address'] : 'N/A';
+    $soldini = 'NON PAGATO';
+
+    // Scrivi i dati in un file temporaneo nella directory Python
+    $orderDetailsPath = dirname(__FILE__) . '/../py/order_details.txt';
+    file_put_contents($orderDetailsPath, $userName . " - " . $country . " " . $address . " - " . $soldini . "\n\n" . $orderDetails, LOCK_EX);
+
+    // Cambia la directory corrente
+    chdir(dirname(__FILE__) . '/../py');
+
+    // Esegui lo script Python con percorso assoluto
+    exec("python3 email_sender.py 2>&1", $output, $resultCode);
+
+    // Aggiungi debug per l'output e il codice di ritorno
+    $response['output'] = implode("\n", $output);
+    $response['code'] = $resultCode;
+
+    // Controlla se lo script Python ha avuto successo
+    if ($resultCode === 0) {
+        $response['message'] = "Prodotti inviati con successo!";
+        
+        // Elimina i prodotti dal carrello dopo che l'email è stata inviata
+        $deleteSql = "DELETE FROM carrello WHERE utente_id = '$userId'";
+        if ($conn->query($deleteSql) === TRUE) {
+            $response['success'] = true;
+        } else {
+            $response['success'] = false;
+        }
+    } else {
+        $response['success'] = false;
+    }
+
 }
+
+
+
+
+
+
 
 // Chiudi la connessione al database
 $conn->close();
