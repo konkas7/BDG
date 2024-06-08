@@ -1,7 +1,6 @@
 TUTTE LE COSE CHE BISOGNA FARE
 
 - I salumi e i formaggi vanno a peso e non a Quantità
-- Bloccare il bottone di pagamento
 - Sistemare la navbar (rimane il colore)
 - Sistemare la navbar in fondo
 - Rimuovere il sort nel carrello

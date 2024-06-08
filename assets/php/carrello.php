@@ -230,13 +230,7 @@
                     <h6 class="mb-0">Carrello</h6>
                     <div class="d-flex justify-content-between">
                         <span id="cart-count"></span>
-                        <div class="d-flex flex-row align-items-center">
-                            <span class="text-black-50">Sort by:</span>
-                            <div class="price ml-2">
-                                <span class="mr-1">price</span>
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <!-- Codice PHP per recuperare i prodotti dal carrello -->
