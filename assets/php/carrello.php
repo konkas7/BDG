@@ -164,10 +164,12 @@
             }
             const formData = new FormData(document.getElementById('payment-form'));
             const paymentButton = document.getElementById('in-store-button');
+            const paymentButton2 = document.getElementById('payment-button');
             const loadingSpinner = document.getElementById('loading-spinner');
 
             // Disabilita il pulsante di pagamento e mostra la rotella di caricamento
             paymentButton.disabled = true;
+            paymentButton2.disabled = true;
             loadingSpinner.style.display = 'block';
 
             fetch('process_payment.php', {
@@ -179,17 +181,19 @@
                 handlePaymentResponse(data);
                 // Riabilita il pulsante di pagamento, ma non nascondere la rotella qui
                 paymentButton.disabled = false;
+                paymentButton2.disabled = false;
             })
             .catch(error => {
                 console.error('Errore:', error);
                 // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento in caso di errore
                 paymentButton.disabled = false;
+                paymentButton2.disabled = false;
                 loadingSpinner.style.display = 'none';
             });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
+            //document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
             document.getElementById('payment-form').addEventListener('submit', submitInStorePayment);
 
             // Aggiungi questi eventi per aggiornare gli input nascosti
