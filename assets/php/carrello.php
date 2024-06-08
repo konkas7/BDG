@@ -152,9 +152,58 @@
                 loadingSpinner.style.display = 'none';
             });
         }
+        
+
+        function submitInStorePayment(event) {
+            event.preventDefault();
+
+            const address = document.querySelector('input[name="address"]').value.trim();
+            if (!address) {
+                alert("Per favore, inserisci l'indirizzo di consegna prima di procedere con il pagamento.");
+                return; // Blocca l'invio del modulo
+            }
+            const formData = new FormData(document.getElementById('in-store-form'));
+            const paymentButton = document.getElementById('in-store-button');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            // Disabilita il pulsante di pagamento e mostra la rotella di caricamento
+            paymentButton.disabled = true;
+            loadingSpinner.style.display = 'block';
+
+            fetch('process_in_store_payment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                handlePaymentResponse(data);
+                // Riabilita il pulsante di pagamento, ma non nascondere la rotella qui
+                paymentButton.disabled = false;
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                // Riabilita il pulsante di pagamento e nascondi la rotella di caricamento in caso di errore
+                paymentButton.disabled = false;
+                loadingSpinner.style.display = 'none';
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
+            document.getElementById('in-store-form').addEventListener('submit', submitInStorePayment);
+
+            // Aggiungi questi eventi per aggiornare gli input nascosti
+            document.querySelector('select[name="country"]').addEventListener('change', function() {
+                document.querySelectorAll('input[name="hidden_country"]').forEach(function(input) {
+                    input.value = this.value;
+                }, this);
+            });
+
+            document.querySelector('input[name="address"]').addEventListener('input', function() {
+                document.querySelectorAll('input[name="hidden_address"]').forEach(function(input) {
+                    input.value = this.value;
+                }, this);
+            });
         });
     </script>
 </head>
@@ -214,9 +263,7 @@
                         $totalItems = 0;
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                $imageName = str_replace(' ', '_', $row['nome']);
-
-                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($imageName) . ".jpg";
+                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
                                 $totalPrice += $row["prezzo_totale"];
                                 $totalItems += $row["quantita"];
 
@@ -249,6 +296,8 @@
             <div class="col-md-4">
                 <?php if ($totalItems > 0): ?>
                 <div class="payment-info">
+                <form id="payment-form" method="post" action="process_payment.php">
+
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Informazioni carta</span>
                         <img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30">
@@ -315,10 +364,15 @@
                         <label class="credit-card-label">Indirizzo di consegna</label>
                         <input type="text" name="address" class="form-control credit-inputs" placeholder="Indirizzo">
                     </div>
-                    <form id="payment-form" method="post" action="process_payment.php">
                         <button id="payment-button" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit">
                             <span>€<?php echo number_format($totalWithTax, 2); ?></span>
-                            <span>Paga<i class="fa fa-long-arrow-right ml-1"></i></span>
+                            <span>Paga con Carta<i class="fa fa-long-arrow-right ml-1"></i></span>
+                        </button>
+                    </form>
+                    <form id="in-store-form" method="post" action="process_in_store_payment.php">
+                        <button id="in-store-button" class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="submit">
+                            <span>€<?php echo number_format($totalPrice, 2); ?></span>
+                            <span>Paga in Negozio<i class="fa fa-long-arrow-right ml-1"></i></span>
                         </button>
                     </form>
                 </div>

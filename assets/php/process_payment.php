@@ -42,9 +42,13 @@ if ($resultUser && $resultUser->num_rows > 0) {
     $userName = $rowUser['nome'];
 }
 
+// Recupera i dati del paese e dell'indirizzo dal POST
+$country = isset($_POST['country']) ? $_POST['country'] : 'N/A';
+$address = isset($_POST['address']) ? $_POST['address'] : 'N/A';
+
 // Scrivi i dati in un file temporaneo nella directory Python
 $orderDetailsPath = dirname(__FILE__) . '/../py/order_details.txt';
-file_put_contents($orderDetailsPath, $userName . "\n\n" . $orderDetails, LOCK_EX);
+file_put_contents($orderDetailsPath, $userName . " | " . $country . " | " . $address . "\n\n" . $orderDetails, LOCK_EX);
 
 // Cambia la directory corrente
 chdir(dirname(__FILE__) . '/../py');
