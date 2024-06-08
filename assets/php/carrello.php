@@ -214,7 +214,9 @@
                         $totalItems = 0;
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($row['nome']) . ".jpg";
+                                $imageName = str_replace(' ', '_', $row['nome']);
+
+                                $imageURL = "Categorie/" . urlencode($row['nome_categoria']) . "/Prodotti/" . urlencode($imageName) . ".jpg";
                                 $totalPrice += $row["prezzo_totale"];
                                 $totalItems += $row["quantita"];
 
