@@ -162,7 +162,7 @@
                 alert("Per favore, inserisci l'indirizzo di consegna prima di procedere con il pagamento.");
                 return; // Blocca l'invio del modulo
             }
-            const formData = new FormData(document.getElementById('in-store-form'));
+            const formData = new FormData(document.getElementById('payment-form'));
             const paymentButton = document.getElementById('in-store-button');
             const loadingSpinner = document.getElementById('loading-spinner');
 
@@ -170,7 +170,7 @@
             paymentButton.disabled = true;
             loadingSpinner.style.display = 'block';
 
-            fetch('process_in_store_payment.php', {
+            fetch('process_payment.php', {
                 method: 'POST',
                 body: formData
             })
@@ -190,7 +190,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('payment-form').addEventListener('submit', submitPaymentForm);
-            document.getElementById('in-store-form').addEventListener('submit', submitInStorePayment);
+            document.getElementById('payment-form').addEventListener('submit', submitInStorePayment);
 
             // Aggiungi questi eventi per aggiornare gli input nascosti
             document.querySelector('select[name="country"]').addEventListener('change', function() {
