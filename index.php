@@ -128,16 +128,29 @@ $_SESSION['LAST_ACTIVITY'] = time();
 							<li class="header-top-contact">
 								Ciao, <?php echo $_SESSION['user_nome']; ?>
 							</li>
-							<li class="header-top-contact">
-								<div class="dropdown">
-									<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
-									<div class="dropdown-content">
-								
-										<a href="assets/php/carrello.php">Carrello</a>
-										<a href="assets/php/logout.php">Logout</a>
+							<?php if ($_SESSION['user_admin'] == 1) { ?>
+								<li class="header-top-contact">
+									<div class="dropdown">
+										<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
+										<div class="dropdown-content">
+											<a href="assets/php/offerte.php">Offerte</a>
+											<a href="assets/php/carrello.php">Carrello</a>
+											<a href="assets/php/logout.php">Logout</a>
+										</div>
 									</div>
-								</div>
-							</li>
+								</li>
+							<?php } else { ?>
+							
+								<li class="header-top-contact">
+									<div class="dropdown">
+										<button class="dropbtn"><span class="lnr lnr-menu"></span></button>
+										<div class="dropdown-content">
+											<a href="assets/php/carrello.php">Carrello</a>
+											<a href="assets/php/logout.php">Logout</a>
+										</div>
+									</div>
+								</li>
+							<?php } ?>
 						<?php } else { ?>
 							<li class="header-top-contact">
 								+39 0345 90079

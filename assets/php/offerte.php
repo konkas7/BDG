@@ -1,3 +1,18 @@
+
+<?php
+// Inizia la sessione
+session_start();
+
+// Controlla se l'utente è loggato e se è un amministratore
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    // Reindirizza l'utente alla pagina di accesso se non è loggato o non è un amministratore
+    header("Location: modern_login_page.php");
+    exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
