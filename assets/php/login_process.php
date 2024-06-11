@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($email) || empty($password)) {
             $response['message'] = "Inserire sia email che password.";
         } else {
-            $sql = "SELECT id, nome, email, password FROM dati_utente WHERE email = ?";
+            $sql = "SELECT id, nome, email, admin, password FROM dati_utente WHERE email = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt) {
                 $stmt->bind_param('s', $email);
@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['user_id'] = $row['id'];
                         $_SESSION['user_nome'] = $row['nome'];
                         $_SESSION['user_email'] = $row['email'];
+                        $_SESSION['user_admin'] = $row['admin'];
                         $response['success'] = true;
                         $response['user_id'] = $row['id'];
                     } else {
