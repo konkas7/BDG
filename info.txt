@@ -3,4 +3,4 @@ TUTTE LE COSE CHE BISOGNA FARE
 - I salumi e i formaggi vanno a peso e non a Quantità
 - Sistemare la navbar (rimane il colore)
 - Sistemare la navbar in fondo
-- Far funzionare l'elimina nel carrello
+- Far funzionare l'elimina nel carrello --- work in progress
